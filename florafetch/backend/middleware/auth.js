@@ -6,7 +6,7 @@ const getUserById = db.prepare(
   `SELECT user_id, full_name, email, phone, role, addresses, created_at
    FROM users WHERE user_id = ?`
 );
-
+//1234
 // Verifies the Bearer JWT and attaches the fresh user record to req.user.
 function requireAuth(req, res, next) {
   const header = req.headers.authorization || '';

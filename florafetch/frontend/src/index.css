@@ -1,0 +1,91 @@
+/* ---- FloraFetch global styles ---- */
+/* Most components style inline; this file handles resets, mobile-responsive
+   layout helpers, and accessible touch-target sizing that inline styles can't
+   express (media queries + minimum tap sizes). */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  color: #2f4a38;
+  -webkit-text-size-adjust: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ---- Touch targets: min 44x44px for interactive controls (WCAG 2.5.5) ---- */
+button,
+[role='button'] {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+input:not([type='checkbox']):not([type='radio']),
+select,
+textarea {
+  min-height: 44px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+textarea {
+  min-height: 66px;
+}
+
+/* Checkboxes/radios stay compact but get a comfortable clickable label area. */
+input[type='checkbox'],
+input[type='radio'] {
+  min-width: 20px;
+  min-height: 20px;
+}
+
+/* Navbar links get a full-height tap area. */
+.ff-navbar a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* ---- Responsive split layouts ---- */
+/* Aside width is passed per-page via the --ff-aside custom property so the
+   media query below (not an inline style) can collapse it to one column. */
+.ff-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--ff-aside, 300px);
+  gap: 2rem;
+  align-items: start;
+}
+
+.ff-split-left {
+  display: grid;
+  grid-template-columns: var(--ff-aside, 240px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .ff-split,
+  .ff-split-left {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* Trim page gutters on small screens. */
+@media (max-width: 600px) {
+  .ff-page {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}

@@ -23,6 +23,13 @@ const getOrderRow = db.prepare('SELECT * FROM orders WHERE order_id = ?');
 const listUserOrders = db.prepare(
   'SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC, order_id DESC'
 );
+// Store-wide list for admins, joined with the customer who placed each order.
+const listAllOrders = db.prepare(`
+  SELECT o.*, u.full_name AS customer_name, u.email AS customer_email
+  FROM orders o
+  JOIN users u ON u.user_id = o.user_id
+  ORDER BY o.created_at DESC, o.order_id DESC
+`);
 const getOrderItems = db.prepare(`
   SELECT oi.item_id, oi.plant_id, oi.quantity, oi.price,
          p.name, p.image_url, (oi.price * oi.quantity) AS line_total
@@ -110,6 +117,16 @@ function getOrders(req, res, next) {
   }
 }
 
+// GET /admin/orders (admin) — every order in the store, with customer info
+function getAllOrders(req, res, next) {
+  try {
+    const orders = listAllOrders.all();
+    res.json({ count: orders.length, orders });
+  } catch (err) {
+    next(err);
+  }
+}
+
 // GET /orders/:id (JWT) — one order with items + status (owner or admin)
 function getOrder(req, res, next) {
   try {
@@ -148,4 +165,4 @@ function updateOrderStatus(req, res, next) {
   }
 }
 
-module.exports = { createOrder, getOrders, getOrder, updateOrderStatus };
+module.exports = { createOrder, getOrders, getAllOrders, getOrder, updateOrderStatus };

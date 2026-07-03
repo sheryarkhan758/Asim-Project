@@ -136,7 +136,8 @@ function createPlant(req, res, next) {
       watering_freq: b.watering_freq ?? null,
       is_pet_friendly: toBool01(b.is_pet_friendly) ?? 0,
       is_low_maint: toBool01(b.is_low_maint) ?? 0,
-      image_url: b.image_url ?? null,
+      // Prefer an uploaded file (multer); fall back to an image_url string.
+      image_url: req.file ? `/uploads/${req.file.filename}` : b.image_url ?? null,
     };
 
     const info = insertPlant.run(record);
@@ -185,7 +186,8 @@ function updatePlant(req, res, next) {
         b.is_low_maint !== undefined
           ? toBool01(b.is_low_maint) ?? existing.is_low_maint
           : existing.is_low_maint,
-      image_url: pick('image_url'),
+      // A newly uploaded file wins; otherwise keep whatever the body/existing has.
+      image_url: req.file ? `/uploads/${req.file.filename}` : pick('image_url'),
     };
 
     if (Number.isNaN(merged.price)) return res.status(400).json({ error: 'price must be a number' });

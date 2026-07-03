@@ -2,11 +2,9 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useCart } from '../context/CartContext.jsx';
 
-const linkStyle = ({ isActive }) => ({
-  color: isActive ? '#1b7a3d' : '#333',
-  textDecoration: 'none',
-  fontWeight: isActive ? 700 : 500,
-});
+// Pill nav link: fills + lifts on hover, solid primary pill on the active route
+// (styling lives in .ff-navlink / .ff-navlink.active in animations.css).
+const navPill = ({ isActive }) => `ff-navlink${isActive ? ' active' : ''}`;
 
 export default function Navbar() {
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
@@ -20,71 +18,86 @@ export default function Navbar() {
 
   return (
     <header
-      className="ff-navbar"
+      className="ff-navbar ff-down"
       style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
         display: 'flex',
         alignItems: 'center',
-        gap: '1.5rem',
-        padding: '0.75rem 1.5rem',
-        borderBottom: '1px solid #e2e8e4',
-        fontFamily: 'sans-serif',
+        gap: '1.25rem',
+        padding: '0.7rem 1.5rem',
+        background: 'rgba(255, 255, 255, 0.92)',
+        backdropFilter: 'saturate(180%) blur(10px)',
+        WebkitBackdropFilter: 'saturate(180%) blur(10px)',
+        borderBottom: '1px solid #e8efe9',
+        boxShadow: '0 4px 20px rgba(27, 122, 61, 0.05)',
         flexWrap: 'wrap',
       }}
     >
       {/* Logo */}
       <Link
         to="/"
-        style={{ fontSize: '1.4rem', fontWeight: 800, color: '#1b7a3d', textDecoration: 'none' }}
+        className="ff-lift"
+        style={{
+          fontSize: '1.4rem',
+          fontWeight: 800,
+          color: '#1b7a3d',
+          textDecoration: 'none',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.3rem',
+        }}
       >
-        🌿 FloraFetch
+        <span className="ff-float" aria-hidden="true">🌿</span> FloraFetch
       </Link>
 
       {/* Primary nav */}
-      <nav style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-        <NavLink to="/" style={linkStyle} end>
+      <nav style={{ display: 'flex', gap: '0.3rem', alignItems: 'center', flexWrap: 'wrap' }}>
+        <NavLink to="/" className={navPill} end>
           Home
         </NavLink>
-        <NavLink to="/shop" style={linkStyle}>
+        <NavLink to="/shop" className={navPill}>
           Shop
         </NavLink>
+        <NavLink to="/care-guides" className={navPill}>
+          Care Guides
+        </NavLink>
+        <NavLink to="/about" className={navPill}>
+          About
+        </NavLink>
+        <NavLink to="/contact" className={navPill}>
+          Contact
+        </NavLink>
         {isAdmin && (
-          <NavLink to="/admin" style={linkStyle}>
+          <NavLink to="/admin" className={navPill}>
             Admin
           </NavLink>
         )}
       </nav>
 
       {/* Right side: cart + auth */}
-      <div style={{ marginLeft: 'auto', display: 'flex', gap: '1rem', alignItems: 'center' }}>
-        <NavLink to="/cart" style={linkStyle}>
-          Cart{count > 0 ? ` (${count})` : ''}
+      <div style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+        <NavLink to="/cart" className={navPill}>
+          <span aria-hidden="true">🛒</span> Cart
+          {count > 0 ? <span className="ff-nav-badge">{count}</span> : null}
         </NavLink>
 
         {isAuthenticated ? (
           <>
-            <NavLink to="/profile" style={linkStyle}>
-              {user?.full_name || 'Profile'}
+            <NavLink to="/profile" className={navPill}>
+              {user?.full_name?.split(' ')[0] || 'Profile'}
             </NavLink>
-            <button
-              onClick={handleLogout}
-              style={{
-                border: '1px solid #1b7a3d',
-                background: 'transparent',
-                color: '#1b7a3d',
-                borderRadius: 6,
-                padding: '0.35rem 0.8rem',
-                cursor: 'pointer',
-              }}
-            >
+            <button onClick={handleLogout} className="ff-nav-ghost">
               Logout
             </button>
           </>
         ) : (
           <>
-            <NavLink to="/login" style={linkStyle}>
+            <NavLink to="/login" className={navPill}>
               Login
             </NavLink>
-            <NavLink to="/register" style={linkStyle}>
+            <NavLink to="/register" className="ff-nav-cta">
               Register
             </NavLink>
           </>

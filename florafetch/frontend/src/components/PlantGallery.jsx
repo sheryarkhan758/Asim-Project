@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { theme } from '../styles/theme.js';
 
 // Single-image gallery with a graceful 🪴 fallback when the image is missing
 // or fails to load (plant photos live at /uploads, proxied to the backend).
@@ -10,10 +11,11 @@ export default function PlantGallery({ imageUrl, alt }) {
     <div
       style={{
         aspectRatio: '1 / 1',
-        borderRadius: 16,
+        borderRadius: theme.radius.xl,
         overflow: 'hidden',
-        background: '#eef5f0',
-        border: '1px solid #e2e8e4',
+        background: theme.gradient.soft,
+        border: `1px solid ${theme.color.border}`,
+        boxShadow: theme.shadow.md,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

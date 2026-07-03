@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../api/categories.js';
+import Container from './ui/Container.jsx';
+import SectionHeading from './ui/SectionHeading.jsx';
+import Reveal from './Reveal.jsx';
+import { theme } from '../styles/theme.js';
 
 // Emoji per known category name; falls back to a seedling for anything new.
 const CATEGORY_ICON = {
@@ -30,47 +34,74 @@ export default function CategoryGrid() {
   }, []);
 
   return (
-    <section style={{ padding: '1rem 1.5rem 2rem', fontFamily: 'sans-serif' }}>
-      <h2 style={{ color: '#2f4a38' }}>Shop by category</h2>
+    <section style={{ padding: '3.5rem 0' }}>
+      <Container>
+        <SectionHeading
+          eyebrow="Find your fit"
+          title="Shop by category"
+          subtitle="From low-light indoor greens to hardy outdoor growers — start where you belong."
+        />
 
-      {status === 'loading' && <p style={{ color: '#667' }}>Loading categories…</p>}
-      {status === 'error' && <p style={{ color: '#c0392b' }}>Could not load categories.</p>}
-      {status === 'ready' &&
-        (categories.length ? (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-              gap: '1rem',
-            }}
-          >
-            {categories.map((cat) => (
-              <Link
-                key={cat.category_id}
-                to={`/shop?category=${cat.category_id}`}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  padding: '1.25rem 1rem',
-                  border: '1px solid #e2e8e4',
-                  borderRadius: 12,
-                  background: '#fff',
-                  textDecoration: 'none',
-                  color: '#2f4a38',
-                }}
-              >
-                <span style={{ fontSize: '2rem' }} role="img" aria-label={cat.name}>
-                  {CATEGORY_ICON[cat.name] || '🌱'}
-                </span>
-                <strong>{cat.name}</strong>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <p style={{ color: '#667' }}>No categories yet.</p>
-        ))}
+        {status === 'loading' && (
+          <p style={{ color: theme.color.muted, textAlign: 'center' }}>Loading categories…</p>
+        )}
+        {status === 'error' && (
+          <p style={{ color: theme.color.danger, textAlign: 'center' }}>
+            Could not load categories.
+          </p>
+        )}
+        {status === 'ready' &&
+          (categories.length ? (
+            <Reveal
+              className="ff-stagger"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
+                gap: '1rem',
+              }}
+            >
+              {categories.map((cat) => (
+                <Link
+                  key={cat.category_id}
+                  to={`/shop?category=${cat.category_id}`}
+                  className="ff-lift"
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '1.6rem 1rem',
+                    border: `1px solid ${theme.color.border}`,
+                    borderRadius: theme.radius.lg,
+                    background: '#fff',
+                    textDecoration: 'none',
+                    color: theme.color.ink,
+                    boxShadow: theme.shadow.sm,
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      width: 60,
+                      height: 60,
+                      borderRadius: '50%',
+                      background: theme.color.primarySoft,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '1.9rem',
+                    }}
+                  >
+                    {CATEGORY_ICON[cat.name] || '🌱'}
+                  </span>
+                  <strong style={{ fontSize: '1rem' }}>{cat.name}</strong>
+                </Link>
+              ))}
+            </Reveal>
+          ) : (
+            <p style={{ color: theme.color.muted, textAlign: 'center' }}>No categories yet.</p>
+          ))}
+      </Container>
     </section>
   );
 }

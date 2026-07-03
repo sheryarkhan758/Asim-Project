@@ -1,12 +1,23 @@
 import OrderRow from './OrderRow.jsx';
+import { theme } from '../../styles/theme.js';
 
-const th = { textAlign: 'left', padding: '0.6rem 0.75rem', color: '#889', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 700, borderBottom: '2px solid #e2e8e4' };
+const th = {
+  textAlign: 'left',
+  padding: '0.75rem 0.85rem',
+  color: theme.color.muted,
+  fontSize: '0.72rem',
+  textTransform: 'uppercase',
+  letterSpacing: '0.05em',
+  fontWeight: 700,
+  background: theme.color.bgSoft,
+  borderBottom: `1px solid ${theme.color.border}`,
+};
 
 // All orders with a per-row StatusDropdown and expandable detail.
 export default function OrderTable({ orders, onStatusChange, savingId }) {
   return (
-    <div style={{ overflowX: 'auto' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 700, fontFamily: 'sans-serif' }}>
+    <div style={{ overflowX: 'auto', border: `1px solid ${theme.color.borderSoft}`, borderRadius: theme.radius.md }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 700 }}>
         <thead>
           <tr>
             <th style={th} aria-label="Expand" />

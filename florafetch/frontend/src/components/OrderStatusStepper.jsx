@@ -19,6 +19,7 @@ export default function OrderStatusStepper({ status }) {
               {/* Connector line to the previous stage */}
               {i > 0 ? (
                 <div
+                  className={reached ? 'ff-fill' : undefined}
                   style={{
                     position: 'absolute',
                     top: 18,
@@ -32,6 +33,7 @@ export default function OrderStatusStepper({ status }) {
               ) : null}
 
               <div
+                className={active ? 'ff-ring' : undefined}
                 style={{
                   width: 38,
                   height: 38,
@@ -44,6 +46,7 @@ export default function OrderStatusStepper({ status }) {
                   fontSize: '1.1rem',
                   zIndex: 1,
                   boxShadow: active ? '0 0 0 4px rgba(27,122,61,0.15)' : 'none',
+                  transition: 'background 0.3s ease',
                 }}
               >
                 {done ? '✓' : ICONS[i]}

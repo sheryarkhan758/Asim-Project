@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getOrders } from '../api/orders.js';
 import { formatPKR, formatDate } from '../utils/format.js';
+import { theme } from '../styles/theme.js';
 
 const STATUS_COLORS = {
   Confirmed: '#0d6efd',
   'Quality Check': '#b8860b',
   'In Transit': '#8a5a00',
-  Delivered: '#1b7a3d',
+  Delivered: theme.color.primary,
 };
 
 // The user's past orders (GET /orders), each linking to its tracking page.
@@ -30,46 +31,72 @@ export default function PurchaseHistory() {
   }, []);
 
   return (
-    <section style={{ border: '1px solid #e2e8e4', borderRadius: 12, padding: '1.25rem', background: '#fff', fontFamily: 'sans-serif' }}>
-      <h2 style={{ color: '#2f4a38', marginTop: 0 }}>Purchase history</h2>
+    <section
+      style={{
+        background: '#fff',
+        border: `1px solid ${theme.color.border}`,
+        borderRadius: theme.radius.lg,
+        boxShadow: theme.shadow.sm,
+        padding: '1.75rem',
+      }}
+    >
+      <h2 style={{ color: theme.color.ink, marginTop: 0, marginBottom: '1.1rem', fontSize: '1.2rem' }}>
+        Purchase history
+      </h2>
 
-      {status === 'loading' && <p style={{ color: '#667' }}>Loading your orders…</p>}
-      {status === 'error' && <p style={{ color: '#c0392b' }}>Could not load your orders.</p>}
+      {status === 'loading' && <p style={{ color: theme.color.muted }}>Loading your orders…</p>}
+      {status === 'error' && <p style={{ color: theme.color.danger }}>Could not load your orders.</p>}
       {status === 'ready' &&
         (orders.length === 0 ? (
-          <p style={{ color: '#889' }}>
+          <p style={{ color: theme.color.muted }}>
             No orders yet.{' '}
-            <Link to="/shop" style={{ color: '#1b7a3d', fontWeight: 600 }}>
+            <Link to="/shop" className="ff-underline" style={{ color: theme.color.primary, fontWeight: 600, textDecoration: 'none' }}>
               Start shopping →
             </Link>
           </p>
         ) : (
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {orders.map((o) => (
               <li
                 key={o.order_id}
-                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', border: '1px solid #e2e8e4', borderRadius: 8, padding: '0.75rem 1rem', flexWrap: 'wrap' }}
+                className="ff-card"
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  gap: '1rem',
+                  border: `1px solid ${theme.color.border}`,
+                  borderRadius: theme.radius.md,
+                  background: theme.color.bgSoft,
+                  padding: '1rem 1.15rem',
+                  flexWrap: 'wrap',
+                }}
               >
                 <div>
-                  <strong style={{ color: '#2f4a38' }}>Order #{o.order_id}</strong>
-                  <div style={{ color: '#889', fontSize: '0.85rem' }}>
+                  <strong style={{ color: theme.color.ink }}>Order #{o.order_id}</strong>
+                  <div style={{ color: theme.color.muted, fontSize: '0.85rem' }}>
                     {formatDate(o.created_at)} · {formatPKR(o.total_amount)}
                   </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                   <span
                     style={{
-                      fontSize: '0.78rem',
+                      fontSize: '0.75rem',
                       fontWeight: 700,
-                      padding: '0.2rem 0.6rem',
-                      borderRadius: 999,
-                      background: '#eef5f0',
-                      color: STATUS_COLORS[o.status] || '#556',
+                      padding: '0.28rem 0.7rem',
+                      borderRadius: theme.radius.pill,
+                      background: '#fff',
+                      border: `1px solid ${theme.color.border}`,
+                      color: STATUS_COLORS[o.status] || theme.color.body,
                     }}
                   >
                     {o.status}
                   </span>
-                  <Link to={`/orders/${o.order_id}`} style={{ color: '#1b7a3d', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                  <Link
+                    to={`/orders/${o.order_id}`}
+                    className="ff-underline"
+                    style={{ color: theme.color.primary, fontWeight: 600, whiteSpace: 'nowrap', textDecoration: 'none' }}
+                  >
                     Track →
                   </Link>
                 </div>

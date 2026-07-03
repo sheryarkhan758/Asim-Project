@@ -4,6 +4,7 @@ import AdminLayout from '../../components/admin/AdminLayout.jsx';
 import SalesStats from '../../components/admin/SalesStats.jsx';
 import LowStockAlert from '../../components/admin/LowStockAlert.jsx';
 import RecentOrders from '../../components/admin/RecentOrders.jsx';
+import { theme } from '../../styles/theme.js';
 
 export default function AdminDashboard() {
   const [orders, setOrders] = useState([]);
@@ -25,8 +26,8 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout title="Dashboard">
-      {status === 'loading' && <p style={{ color: '#667' }}>Loading dashboard…</p>}
-      {status === 'error' && <p style={{ color: '#c0392b' }}>Could not load order data.</p>}
+      {status === 'loading' && <p style={{ color: theme.color.muted }}>Loading dashboard…</p>}
+      {status === 'error' && <p style={{ color: theme.color.danger }}>Could not load order data.</p>}
 
       {status === 'ready' && (
         <>

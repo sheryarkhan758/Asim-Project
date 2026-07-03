@@ -5,6 +5,34 @@ import { formatDate } from '../utils/format.js';
 import OrderStatusStepper from '../components/OrderStatusStepper.jsx';
 import OrderItemList from '../components/OrderItemList.jsx';
 import DeliveryInfo from '../components/DeliveryInfo.jsx';
+import Container from '../components/ui/Container.jsx';
+import Button from '../components/ui/Button.jsx';
+import { theme } from '../styles/theme.js';
+
+function StatusCard({ emoji, title, text }) {
+  return (
+    <Container style={{ padding: '4.5rem 1.5rem', textAlign: 'center' }}>
+      <div
+        style={{
+          maxWidth: 460,
+          margin: '0 auto',
+          background: '#fff',
+          border: `1px solid ${theme.color.border}`,
+          borderRadius: theme.radius.xl,
+          boxShadow: theme.shadow.sm,
+          padding: '3rem 2rem',
+        }}
+      >
+        {emoji ? <div style={{ fontSize: '3.2rem' }} aria-hidden="true">{emoji}</div> : null}
+        <h1 style={{ color: theme.color.ink, margin: '0.75rem 0 0.4rem', fontSize: '1.5rem' }}>{title}</h1>
+        <p style={{ color: theme.color.muted, margin: '0 0 1.5rem' }}>{text}</p>
+        <Button to="/profile" variant="ghost">
+          ← View your orders
+        </Button>
+      </div>
+    </Container>
+  );
+}
 
 export default function OrderTracking() {
   const { id } = useParams();
@@ -31,51 +59,74 @@ export default function OrderTracking() {
   }, [id]);
 
   if (status === 'loading') {
-    return <p style={{ padding: '2rem', fontFamily: 'sans-serif', color: '#667' }}>Loading order…</p>;
+    return (
+      <Container style={{ padding: '4rem 1.5rem', textAlign: 'center', color: theme.color.muted }}>
+        Loading order…
+      </Container>
+    );
   }
 
   if (status === 'notfound') {
     return (
-      <section style={{ padding: '3rem 2rem', fontFamily: 'sans-serif', textAlign: 'center' }}>
-        <div style={{ fontSize: '3rem' }}>🔎</div>
-        <h1 style={{ color: '#2f4a38' }}>Order not found</h1>
-        <p style={{ color: '#667' }}>We couldn't find this order under your account.</p>
-        <Link to="/profile" style={{ color: '#1b7a3d', fontWeight: 600 }}>
-          ← View your orders
-        </Link>
-      </section>
+      <StatusCard
+        emoji="🔎"
+        title="Order not found"
+        text="We couldn't find this order under your account."
+      />
     );
   }
 
   if (status === 'error') {
     return (
-      <section style={{ padding: '3rem 2rem', fontFamily: 'sans-serif', textAlign: 'center' }}>
-        <h1 style={{ color: '#2f4a38' }}>Something went wrong</h1>
-        <p style={{ color: '#667' }}>We couldn't load this order. Please try again.</p>
-        <Link to="/profile" style={{ color: '#1b7a3d', fontWeight: 600 }}>
-          ← View your orders
-        </Link>
-      </section>
+      <StatusCard
+        title="Something went wrong"
+        text="We couldn't load this order. Please try again."
+      />
     );
   }
 
   return (
-    <div className="ff-page" style={{ padding: '1.5rem', fontFamily: 'sans-serif', maxWidth: 900, margin: '0 auto' }}>
-      <Link to="/profile" style={{ color: '#1b7a3d', fontSize: '0.9rem', fontWeight: 600 }}>
+    <Container as="div" className="ff-page" style={{ padding: '2.5rem 1.5rem 3.5rem' }}>
+      <Link
+        to="/profile"
+        className="ff-underline"
+        style={{ color: theme.color.primary, fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none' }}
+      >
         ← Back to your orders
       </Link>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.75rem' }}>
-        <h1 style={{ color: '#2f4a38', margin: 0 }}>Order #{order.order_id}</h1>
-        <span style={{ color: '#889' }}>Placed {formatDate(order.created_at)}</span>
-      </div>
+      <div
+        style={{
+          background: '#fff',
+          border: `1px solid ${theme.color.border}`,
+          borderRadius: theme.radius.lg,
+          boxShadow: theme.shadow.sm,
+          padding: '1.5rem 1.75rem',
+          margin: '1rem 0 1.5rem',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'baseline',
+            flexWrap: 'wrap',
+            gap: '0.5rem',
+          }}
+        >
+          <h1 style={{ color: theme.color.ink, margin: 0, fontSize: 'clamp(1.5rem, 3vw, 2rem)' }}>
+            Order #{order.order_id}
+          </h1>
+          <span style={{ color: theme.color.muted, fontSize: '0.9rem' }}>Placed {formatDate(order.created_at)}</span>
+        </div>
 
-      <OrderStatusStepper status={order.status} />
+        <OrderStatusStepper status={order.status} />
+      </div>
 
       <div className="ff-split" style={{ '--ff-aside': 'minmax(260px, 340px)' }}>
         <OrderItemList items={order.items || []} />
         <DeliveryInfo order={order} />
       </div>
-    </div>
+    </Container>
   );
 }

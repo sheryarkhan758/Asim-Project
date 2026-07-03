@@ -2,15 +2,18 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useCart } from '../context/CartContext.jsx';
+import { theme } from '../styles/theme.js';
 
 const stepBtn = (disabled) => ({
-  width: 36,
-  height: 36,
-  borderRadius: 8,
-  border: '1px solid #cdddd2',
-  background: '#fff',
-  color: disabled ? '#bbb' : '#2f4a38',
-  fontSize: '1.1rem',
+  width: 40,
+  height: 40,
+  borderRadius: theme.radius.md,
+  border: `1.5px solid ${theme.color.border}`,
+  background: theme.color.white,
+  color: disabled ? theme.color.faint : theme.color.primary,
+  fontSize: '1.2rem',
+  fontWeight: 700,
+  lineHeight: 1,
   cursor: disabled ? 'default' : 'pointer',
 });
 
@@ -51,14 +54,14 @@ export default function AddToCartBtn({ plant }) {
 
   if (outOfStock) {
     return (
-      <div style={{ fontFamily: 'sans-serif' }}>
+      <div>
         <span
           style={{
             display: 'inline-block',
-            padding: '0.6rem 1rem',
-            borderRadius: 8,
-            background: '#f4ecec',
-            color: '#a1231d',
+            padding: '0.7rem 1.2rem',
+            borderRadius: theme.radius.pill,
+            background: '#f7ecec',
+            color: theme.color.danger,
             fontWeight: 700,
           }}
         >
@@ -69,12 +72,23 @@ export default function AddToCartBtn({ plant }) {
   }
 
   return (
-    <div style={{ fontFamily: 'sans-serif', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
         {/* Quantity stepper */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            padding: '0.25rem',
+            border: `1px solid ${theme.color.borderSoft}`,
+            borderRadius: theme.radius.lg,
+            background: theme.color.bgSoft,
+          }}
+        >
           <button
             type="button"
+            className="ff-btn"
             aria-label="Decrease quantity"
             onClick={() => setQty((q) => clamp(q - 1))}
             disabled={qty <= 1}
@@ -92,14 +106,18 @@ export default function AddToCartBtn({ plant }) {
             style={{
               width: 56,
               textAlign: 'center',
-              padding: '0.45rem',
-              borderRadius: 8,
-              border: '1px solid #cdddd2',
+              padding: '0.5rem',
+              borderRadius: theme.radius.md,
+              border: `1.5px solid ${theme.color.border}`,
               fontSize: '1rem',
+              fontWeight: 700,
+              color: theme.color.ink,
+              background: theme.color.white,
             }}
           />
           <button
             type="button"
+            className="ff-btn"
             aria-label="Increase quantity"
             onClick={() => setQty((q) => clamp(q + 1))}
             disabled={qty >= stock}
@@ -111,29 +129,31 @@ export default function AddToCartBtn({ plant }) {
 
         <button
           onClick={handleAdd}
+          className="ff-btn"
           disabled={adding}
           style={{
             flex: '1 1 auto',
-            minWidth: 160,
-            padding: '0.7rem 1.4rem',
-            borderRadius: 8,
+            minWidth: 170,
+            padding: '0.8rem 1.5rem',
+            borderRadius: theme.radius.pill,
             border: 'none',
-            background: added ? '#127a32' : '#1b7a3d',
+            background: added ? theme.color.primaryLight : theme.color.primary,
             color: '#fff',
             fontSize: '1rem',
             fontWeight: 700,
             cursor: adding ? 'default' : 'pointer',
+            boxShadow: theme.shadow.sm,
           }}
         >
           {added ? 'Added to cart ✓' : adding ? 'Adding…' : 'Add to cart'}
         </button>
       </div>
 
-      <span style={{ fontSize: '0.85rem', color: stock <= 5 ? '#c0392b' : '#667' }}>
+      <span style={{ fontSize: '0.85rem', fontWeight: 600, color: stock <= 5 ? theme.color.danger : theme.color.muted }}>
         {stock <= 5 ? `Only ${stock} left in stock` : `${stock} in stock`}
       </span>
 
-      {error ? <span style={{ color: '#c0392b', fontSize: '0.85rem' }}>{error}</span> : null}
+      {error ? <span style={{ color: theme.color.danger, fontSize: '0.85rem' }}>{error}</span> : null}
     </div>
   );
 }

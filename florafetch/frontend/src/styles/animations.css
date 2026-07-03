@@ -1,0 +1,427 @@
+/* ============================================================================
+   FloraFetch — animation system
+   Dependency-free, reusable utility classes layered on top of the app's inline
+   styles. Everything degrades gracefully under `prefers-reduced-motion`.
+
+   Groups:
+     1. Keyframes
+     2. Entrance animations (run once on mount)   -> .ff-fade / .ff-up / ...
+     3. Stagger container                          -> .ff-stagger > *
+     4. Scroll reveal (JS-driven via useReveal)    -> .ff-reveal / .is-visible
+     5. Hover / interaction micro-motions          -> .ff-card / .ff-btn / ...
+     6. Continuous motion (loaders, accents)       -> .ff-spin / .ff-float / ...
+     7. Overlays (modal / backdrop)                -> .ff-backdrop / .ff-modal
+     8. Route (page) transition                    -> .ff-page-enter
+     9. Global micro-interactions (buttons/inputs)
+   ============================================================================ */
+
+/* ---- 1. Keyframes -------------------------------------------------------- */
+@keyframes ffFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ffUp {
+  from { opacity: 0; transform: translate3d(0, 22px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes ffDown {
+  from { opacity: 0; transform: translate3d(0, -22px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes ffLeft {
+  from { opacity: 0; transform: translate3d(-28px, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes ffRight {
+  from { opacity: 0; transform: translate3d(28px, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes ffScale {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes ffPop {
+  0%   { opacity: 0; transform: scale(0.9) translateY(10px); }
+  60%  { opacity: 1; transform: scale(1.02) translateY(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes ffSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes ffFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes ffPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.06); opacity: 0.85; }
+}
+@keyframes ffRing {
+  0%   { box-shadow: 0 0 0 0 rgba(27, 122, 61, 0.35); }
+  70%  { box-shadow: 0 0 0 10px rgba(27, 122, 61, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(27, 122, 61, 0); }
+}
+@keyframes ffShimmer {
+  from { background-position: -420px 0; }
+  to   { background-position: 420px 0; }
+}
+@keyframes ffGradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes ffGrowX {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes ffKenBurns {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to   { transform: scale(1.09) translate3d(-1.5%, -1%, 0); }
+}
+
+/* ---- 2. Entrance animations --------------------------------------------- */
+/* Optional per-element delay: style={{ '--ff-delay': '120ms' }} */
+.ff-fade,
+.ff-up,
+.ff-down,
+.ff-left,
+.ff-right,
+.ff-scale,
+.ff-pop {
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  animation-delay: var(--ff-delay, 0ms);
+}
+.ff-fade  { animation-name: ffFade; }
+.ff-up    { animation-name: ffUp; }
+.ff-down  { animation-name: ffDown; }
+.ff-left  { animation-name: ffLeft; }
+.ff-right { animation-name: ffRight; }
+.ff-scale { animation-name: ffScale; }
+.ff-pop   { animation-name: ffPop; }
+
+/* ---- 3. Stagger container ------------------------------------------------ */
+/* Direct children animate up in sequence. Works for any grid/list without
+   threading an index prop through each child. */
+.ff-stagger > * {
+  animation: ffUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.ff-stagger > *:nth-child(1)  { animation-delay: 0.04s; }
+.ff-stagger > *:nth-child(2)  { animation-delay: 0.10s; }
+.ff-stagger > *:nth-child(3)  { animation-delay: 0.16s; }
+.ff-stagger > *:nth-child(4)  { animation-delay: 0.22s; }
+.ff-stagger > *:nth-child(5)  { animation-delay: 0.28s; }
+.ff-stagger > *:nth-child(6)  { animation-delay: 0.34s; }
+.ff-stagger > *:nth-child(7)  { animation-delay: 0.40s; }
+.ff-stagger > *:nth-child(8)  { animation-delay: 0.46s; }
+.ff-stagger > *:nth-child(9)  { animation-delay: 0.52s; }
+.ff-stagger > *:nth-child(10) { animation-delay: 0.58s; }
+.ff-stagger > *:nth-child(11) { animation-delay: 0.64s; }
+.ff-stagger > *:nth-child(12) { animation-delay: 0.70s; }
+.ff-stagger > *:nth-child(n + 13) { animation-delay: 0.76s; }
+
+/* ---- 4. Scroll reveal (JS toggles .is-visible) --------------------------- */
+.ff-reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.ff-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- 5. Hover / interaction --------------------------------------------- */
+/* Card lift — pairs with an inner image via .ff-zoom for a subtle zoom. */
+.ff-card {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.ff-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 34px rgba(27, 122, 61, 0.16);
+}
+.ff-zoom { overflow: hidden; }
+.ff-zoom img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ff-card:hover .ff-zoom img,
+.ff-zoom:hover img {
+  transform: scale(1.07);
+}
+
+/* Simple lift for links / tiles / buttons that aren't full cards. */
+.ff-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.ff-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(27, 122, 61, 0.14);
+}
+
+/* Button press feedback + gentle hover. */
+.ff-btn {
+  transition: transform 0.14s ease, box-shadow 0.2s ease, filter 0.2s ease,
+              background-color 0.2s ease;
+}
+.ff-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 8px 18px rgba(27, 122, 61, 0.22);
+}
+.ff-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.97);
+}
+
+/* Animated underline for nav links (grows from the left on hover / active). */
+.ff-underline {
+  position: relative;
+}
+.ff-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  height: 2px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ff-underline:hover::after,
+.ff-underline.active::after {
+  transform: scaleX(1);
+}
+
+/* ---- Navbar pill links ---- */
+/* Page links render as rounded pills that fill + lift on hover; the current
+   route is a solid primary pill. */
+.ff-navlink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  font-family: var(--ff-font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1;
+  color: #42564a;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s ease, background-color 0.25s ease,
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+}
+.ff-navlink:hover {
+  color: #1b7a3d;
+  background: #e8f3ea;
+  transform: translateY(-2px);
+}
+.ff-navlink:active {
+  transform: translateY(0);
+}
+.ff-navlink.active {
+  color: #fff;
+  background: #1b7a3d;
+  box-shadow: 0 6px 16px rgba(27, 122, 61, 0.26);
+}
+.ff-navlink.active:hover {
+  color: #fff;
+  background: #17953f;
+  transform: translateY(-2px);
+}
+
+/* Solid CTA pill (e.g. Register / primary nav action). */
+.ff-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  background: #1b7a3d;
+  color: #fff;
+  font-family: var(--ff-font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(27, 122, 61, 0.25);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+.ff-nav-cta:hover {
+  transform: translateY(-2px);
+  background: #17953f;
+  box-shadow: 0 10px 22px rgba(27, 122, 61, 0.34);
+}
+.ff-nav-cta:active {
+  transform: translateY(0);
+}
+
+/* Ghost/outline pill for a secondary nav action (e.g. Logout). */
+.ff-nav-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: transparent;
+  color: #1b7a3d;
+  font-family: var(--ff-font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1.5px solid rgba(27, 122, 61, 0.4);
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease,
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+}
+.ff-nav-ghost:hover {
+  background: #e8f3ea;
+  border-color: #1b7a3d;
+  transform: translateY(-2px);
+}
+.ff-nav-ghost:active {
+  transform: translateY(0);
+}
+
+/* Small count badge inside the cart pill. */
+.ff-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #c97b3c;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.ff-navlink.active .ff-nav-badge {
+  background: #fff;
+  color: #1b7a3d;
+}
+
+/* Shine sweep for a hero CTA. */
+.ff-shine {
+  position: relative;
+  overflow: hidden;
+}
+.ff-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+.ff-shine:hover::before {
+  left: 130%;
+}
+
+/* ---- 6. Continuous motion ------------------------------------------------ */
+.ff-spin  { animation: ffSpin 1s linear infinite; display: inline-block; }
+.ff-float { animation: ffFloat 3s ease-in-out infinite; display: inline-block; }
+.ff-pulse { animation: ffPulse 1.8s ease-in-out infinite; }
+.ff-ring  { animation: ffRing 1.8s ease-out infinite; }
+
+/* Shimmer skeleton block. */
+.ff-skeleton {
+  background: linear-gradient(90deg, #eef5f0 25%, #e0ebe4 37%, #eef5f0 63%);
+  background-size: 420px 100%;
+  animation: ffShimmer 1.3s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* Slow cinematic zoom for a background photo (Ken Burns effect). Put this on a
+   dedicated absolutely-positioned image layer sitting under a color overlay. */
+.ff-kenburns {
+  animation: ffKenBurns 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Animated gradient surface (hero). */
+.ff-animated-gradient {
+  background-size: 200% 200% !important;
+  animation: ffGradient 9s ease infinite;
+}
+
+/* Connector fill for steppers (fills left-to-right). */
+.ff-fill {
+  transform-origin: left;
+  animation: ffGrowX 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---- 7. Overlays --------------------------------------------------------- */
+.ff-backdrop {
+  animation: ffFade 0.25s ease both;
+}
+.ff-modal {
+  animation: ffPop 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---- 8. Route (page) transition ----------------------------------------- */
+.ff-page-enter {
+  animation: ffUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---- 9. Global micro-interactions --------------------------------------- */
+/* Every button/link/control gets smooth state transitions and press feedback
+   for free, so the whole app feels responsive without touching each file. */
+button,
+[role='button'],
+a,
+input,
+select,
+textarea {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+    box-shadow 0.2s ease, opacity 0.2s ease;
+}
+button:not(:disabled),
+[role='button'] {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+    box-shadow 0.2s ease, transform 0.12s ease;
+}
+button:not(:disabled):active,
+[role='button']:active {
+  transform: translateY(1px);
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(27, 122, 61, 0.18);
+  border-color: #1b7a3d;
+}
+
+/* ---- Reduced motion: honor the user's OS preference --------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ff-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

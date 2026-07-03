@@ -28,6 +28,8 @@ apiRouter.use('/cart', require('./routes/cart.js'));
 apiRouter.use('/orders', require('./routes/orders.js'));
 apiRouter.use('/reviews', require('./routes/reviews.js'));
 apiRouter.use('/admin', require('./routes/admin.js'));
+apiRouter.use('/contact', require('./routes/contact.js'));
+apiRouter.use('/newsletter', require('./routes/newsletter.js'));
 
 app.use('/api/v1', apiRouter);
 

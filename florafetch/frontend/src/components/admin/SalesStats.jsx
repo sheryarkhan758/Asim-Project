@@ -1,4 +1,5 @@
 import { formatPKR } from '../../utils/format.js';
+import { theme } from '../../styles/theme.js';
 
 const STATUSES = ['Confirmed', 'Quality Check', 'In Transit', 'Delivered'];
 const STATUS_COLOR = {
@@ -7,20 +8,69 @@ const STATUS_COLOR = {
   'In Transit': '#8a5a00',
   Delivered: '#1b7a3d',
 };
+const STATUS_ICON = {
+  Confirmed: '✅',
+  'Quality Check': '🔍',
+  'In Transit': '🚚',
+  Delivered: '📬',
+};
 
-function StatCard({ label, value, accent }) {
+function StatCard({ label, value, accent, icon, big }) {
   return (
     <div
+      className="ff-card"
       style={{
         background: '#fff',
-        border: '1px solid #dfe5e0',
-        borderRadius: 12,
-        padding: '1.1rem 1.25rem',
-        borderTop: `4px solid ${accent || '#1b7a3d'}`,
+        border: `1px solid ${theme.color.border}`,
+        borderRadius: theme.radius.lg,
+        boxShadow: theme.shadow.sm,
+        padding: '1.35rem 1.4rem',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '1rem',
       }}
     >
-      <div style={{ fontSize: '0.8rem', color: '#889', fontWeight: 700, textTransform: 'uppercase' }}>{label}</div>
-      <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#14331f', marginTop: '0.35rem' }}>{value}</div>
+      <div
+        style={{
+          width: 48,
+          height: 48,
+          flexShrink: 0,
+          borderRadius: theme.radius.md,
+          background: theme.color.primarySoft,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.35rem',
+        }}
+        aria-hidden="true"
+      >
+        {icon}
+      </div>
+      <div style={{ minWidth: 0 }}>
+        <div
+          style={{
+            fontSize: '0.74rem',
+            color: theme.color.muted,
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          {label}
+        </div>
+        <div
+          style={{
+            fontFamily: theme.font.head,
+            fontSize: big ? '1.85rem' : '1.6rem',
+            fontWeight: 800,
+            color: accent || theme.color.primary,
+            marginTop: '0.25rem',
+            lineHeight: 1.1,
+          }}
+        >
+          {value}
+        </div>
+      </div>
     </div>
   );
 }
@@ -36,18 +86,41 @@ export default function SalesStats({ orders }) {
 
   return (
     <section style={{ marginBottom: '2rem' }}>
-      <h2 style={{ color: '#14331f' }}>Sales overview</h2>
+      <h2
+        style={{
+          fontFamily: theme.font.head,
+          color: theme.color.ink,
+          fontSize: '1.25rem',
+          fontWeight: 700,
+          margin: '0 0 1rem',
+        }}
+      >
+        Sales overview
+      </h2>
 
       {/* Headline totals */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1rem' }}>
-        <StatCard label="Total orders" value={totalOrders} accent="#1b7a3d" />
-        <StatCard label="Total revenue" value={formatPKR(totalRevenue)} accent="#0d6efd" />
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '1rem',
+          marginBottom: '1rem',
+        }}
+      >
+        <StatCard label="Total orders" value={totalOrders} accent={theme.color.primary} icon="🧾" big />
+        <StatCard label="Total revenue" value={formatPKR(totalRevenue)} accent={theme.color.accent} icon="💰" big />
       </div>
 
       {/* Per-status breakdown */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1rem' }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+          gap: '1rem',
+        }}
+      >
         {STATUSES.map((s) => (
-          <StatCard key={s} label={s} value={byStatus[s]} accent={STATUS_COLOR[s]} />
+          <StatCard key={s} label={s} value={byStatus[s]} accent={STATUS_COLOR[s]} icon={STATUS_ICON[s]} />
         ))}
       </div>
     </section>

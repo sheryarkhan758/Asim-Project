@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getPlantsByCategory } from '../api/plants.js';
 import ProductGrid from './ProductGrid.jsx';
+import SectionHeading from './ui/SectionHeading.jsx';
 
 const MAX_RELATED = 4;
 
@@ -34,8 +35,13 @@ export default function RelatedItems({ categoryId, currentPlantId }) {
   if (status !== 'ready' || plants.length === 0) return null;
 
   return (
-    <section style={{ marginTop: '2.5rem', fontFamily: 'sans-serif' }}>
-      <h2 style={{ color: '#2f4a38' }}>You might also like</h2>
+    <section style={{ marginTop: '3rem' }}>
+      <SectionHeading
+        eyebrow="More greenery"
+        title="You might also like"
+        align="left"
+        style={{ marginBottom: '1.25rem' }}
+      />
       <ProductGrid plants={plants} />
     </section>
   );

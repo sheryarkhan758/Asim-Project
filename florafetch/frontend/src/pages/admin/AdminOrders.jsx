@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getAllOrders, updateOrderStatus } from '../../api/orders.js';
 import AdminLayout from '../../components/admin/AdminLayout.jsx';
 import OrderTable from '../../components/admin/OrderTable.jsx';
+import { theme } from '../../styles/theme.js';
 
 export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
@@ -51,24 +52,25 @@ export default function AdminOrders() {
         <div
           style={{
             marginBottom: '1rem',
-            padding: '0.6rem 0.9rem',
-            borderRadius: 8,
+            padding: '0.75rem 1rem',
+            borderRadius: theme.radius.md,
             fontSize: '0.9rem',
-            background: feedback.type === 'ok' ? '#e8f5ec' : '#fdecea',
+            fontWeight: 600,
+            background: feedback.type === 'ok' ? theme.color.primarySoft : '#fdecea',
             border: `1px solid ${feedback.type === 'ok' ? '#b6ddc2' : '#f5c2c0'}`,
-            color: feedback.type === 'ok' ? '#1b7a3d' : '#a1231d',
+            color: feedback.type === 'ok' ? theme.color.primary : '#a1231d',
           }}
         >
           {feedback.text}
         </div>
       ) : null}
 
-      <div style={{ background: '#fff', border: '1px solid #dfe5e0', borderRadius: 12, padding: '1.25rem' }}>
-        {status === 'loading' && <p style={{ color: '#667' }}>Loading orders…</p>}
-        {status === 'error' && <p style={{ color: '#c0392b' }}>Could not load orders.</p>}
+      <div style={{ background: '#fff', border: `1px solid ${theme.color.border}`, borderRadius: theme.radius.lg, boxShadow: theme.shadow.sm, padding: '1.35rem' }}>
+        {status === 'loading' && <p style={{ color: theme.color.muted }}>Loading orders…</p>}
+        {status === 'error' && <p style={{ color: theme.color.danger }}>Could not load orders.</p>}
         {status === 'ready' &&
           (orders.length === 0 ? (
-            <p style={{ color: '#889' }}>No orders have been placed yet.</p>
+            <p style={{ color: theme.color.muted }}>No orders have been placed yet.</p>
           ) : (
             <OrderTable orders={orders} onStatusChange={handleStatusChange} savingId={savingId} />
           ))}

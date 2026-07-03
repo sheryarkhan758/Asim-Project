@@ -4,6 +4,7 @@ import ProductCard from './ProductCard.jsx';
 export default function ProductGrid({ plants }) {
   return (
     <div
+      className="ff-stagger"
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',

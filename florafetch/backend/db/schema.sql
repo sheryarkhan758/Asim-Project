@@ -92,6 +92,23 @@ CREATE TABLE IF NOT EXISTS reviews (
   FOREIGN KEY (order_id) REFERENCES orders (order_id)
 );
 
+-- Table: contact_messages (submissions from the public Contact form)
+CREATE TABLE IF NOT EXISTS contact_messages (
+  message_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name       TEXT    NOT NULL,
+  email      TEXT    NOT NULL,
+  subject    TEXT,
+  message    TEXT    NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table: newsletter_subscribers (email captures from the homepage CTA)
+CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+  subscriber_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email         TEXT    UNIQUE NOT NULL,
+  created_at    DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Indexes on frequently filtered / joined columns
 CREATE INDEX IF NOT EXISTS idx_plants_category_id  ON plants (category_id);
 CREATE INDEX IF NOT EXISTS idx_cart_items_user_id  ON cart_items (user_id);

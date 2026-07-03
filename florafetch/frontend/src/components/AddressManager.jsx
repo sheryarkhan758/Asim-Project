@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext.jsx';
 import { normalizeAddresses } from '../utils/addresses.js';
+import { theme } from '../styles/theme.js';
 
 const controlStyle = {
   width: '100%',
   boxSizing: 'border-box',
-  padding: '0.6rem 0.75rem',
-  borderRadius: 8,
-  border: '1px solid #cdddd2',
+  padding: '0.7rem 0.85rem',
+  borderRadius: theme.radius.md,
+  border: `1px solid ${theme.color.border}`,
   fontSize: '0.95rem',
-  fontFamily: 'inherit',
-  background: '#fff',
+  fontFamily: theme.font.body,
+  background: theme.color.bgSoft,
 };
 
 // Add/remove saved delivery addresses, persisted as the addresses JSON array
@@ -54,26 +55,45 @@ export default function AddressManager() {
   };
 
   return (
-    <section style={{ border: '1px solid #e2e8e4', borderRadius: 12, padding: '1.25rem', background: '#fff', fontFamily: 'sans-serif' }}>
-      <h2 style={{ color: '#2f4a38', marginTop: 0 }}>Saved addresses</h2>
+    <section
+      style={{
+        background: '#fff',
+        border: `1px solid ${theme.color.border}`,
+        borderRadius: theme.radius.lg,
+        boxShadow: theme.shadow.sm,
+        padding: '1.75rem',
+      }}
+    >
+      <h2 style={{ color: theme.color.ink, marginTop: 0, marginBottom: '1.1rem', fontSize: '1.2rem' }}>
+        Saved addresses
+      </h2>
 
       {addresses.length === 0 ? (
-        <p style={{ color: '#889' }}>You haven't saved any delivery addresses yet.</p>
+        <p style={{ color: theme.color.muted }}>You haven't saved any delivery addresses yet.</p>
       ) : (
-        <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+        <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
           {addresses.map((a, i) => (
             <li
               key={i}
-              style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', justifyContent: 'space-between', border: '1px solid #e2e8e4', borderRadius: 8, padding: '0.6rem 0.75rem' }}
+              style={{
+                display: 'flex',
+                gap: '0.75rem',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between',
+                border: `1px solid ${theme.color.border}`,
+                borderRadius: theme.radius.md,
+                background: theme.color.bgSoft,
+                padding: '0.85rem 1rem',
+              }}
             >
               <span>
-                {a.label ? <strong style={{ display: 'block', color: '#2f4a38' }}>{a.label}</strong> : null}
-                <span style={{ color: '#556' }}>{a.text}</span>
+                {a.label ? <strong style={{ display: 'block', color: theme.color.ink }}>{a.label}</strong> : null}
+                <span style={{ color: theme.color.body }}>{a.text}</span>
               </span>
               <button
                 onClick={() => handleRemove(i)}
                 disabled={busy}
-                style={{ background: 'none', border: 'none', color: '#c0392b', cursor: busy ? 'default' : 'pointer', fontSize: '0.85rem', whiteSpace: 'nowrap' }}
+                style={{ background: 'none', border: 'none', color: theme.color.danger, cursor: busy ? 'default' : 'pointer', fontSize: '0.82rem', fontWeight: 600, whiteSpace: 'nowrap' }}
               >
                 Remove
               </button>
@@ -83,7 +103,7 @@ export default function AddressManager() {
       )}
 
       {/* Add new address */}
-      <form onSubmit={handleAdd} style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+      <form onSubmit={handleAdd} style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
         <input
           value={label}
           onChange={(e) => setLabel(e.target.value)}
@@ -97,17 +117,17 @@ export default function AddressManager() {
           rows={2}
           style={{ ...controlStyle, resize: 'vertical' }}
         />
-        {error ? <span style={{ color: '#c0392b', fontSize: '0.85rem' }}>{error}</span> : null}
+        {error ? <span style={{ color: theme.color.danger, fontSize: '0.85rem' }}>{error}</span> : null}
         <button
           type="submit"
           disabled={busy}
           style={{
             alignSelf: 'flex-start',
-            padding: '0.55rem 1.2rem',
-            borderRadius: 8,
-            border: '1px solid #1b7a3d',
-            background: busy ? '#eef5f0' : '#fff',
-            color: '#1b7a3d',
+            padding: '0.6rem 1.3rem',
+            borderRadius: theme.radius.pill,
+            border: `1.5px solid ${theme.color.primary}`,
+            background: busy ? theme.color.primarySoft : '#fff',
+            color: theme.color.primary,
             fontWeight: 700,
             cursor: busy ? 'default' : 'pointer',
           }}

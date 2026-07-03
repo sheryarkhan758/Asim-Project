@@ -2,16 +2,22 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
 import { formatPKR } from '../utils/format.js';
+import { theme } from '../styles/theme.js';
 
 const stepBtn = (disabled) => ({
-  width: 30,
-  height: 30,
-  borderRadius: 6,
-  border: '1px solid #cdddd2',
-  background: '#fff',
-  color: disabled ? '#bbb' : '#2f4a38',
-  fontSize: '1rem',
+  width: 32,
+  height: 32,
+  borderRadius: theme.radius.sm,
+  border: `1px solid ${theme.color.border}`,
+  background: disabled ? theme.color.bgSoft : '#fff',
+  color: disabled ? theme.color.faint : theme.color.ink,
+  fontSize: '1.1rem',
+  lineHeight: 1,
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   cursor: disabled ? 'default' : 'pointer',
+  transition: 'border-color 0.15s ease, background 0.15s ease',
 });
 
 // One cart line: image, name, unit price, quantity stepper, line total, remove.
@@ -44,22 +50,23 @@ export default function CartItem({ item }) {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: '64px 1fr auto',
+        gridTemplateColumns: '72px 1fr auto',
         gap: '1rem',
         alignItems: 'center',
-        padding: '1rem 0',
-        borderBottom: '1px solid #eef2ef',
+        padding: '1.15rem 0',
+        borderBottom: `1px solid ${theme.color.borderSoft}`,
         opacity: busy ? 0.6 : 1,
+        transition: 'opacity 0.15s ease',
       }}
     >
       {/* Image */}
       <Link to={`/plant/${item.plant_id}`}>
         <div
           style={{
-            width: 64,
-            height: 64,
-            borderRadius: 8,
-            background: '#eef5f0',
+            width: 72,
+            height: 72,
+            borderRadius: theme.radius.md,
+            background: theme.color.bgTint,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -74,7 +81,7 @@ export default function CartItem({ item }) {
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           ) : (
-            <span style={{ fontSize: '1.6rem' }} role="img" aria-label="plant">
+            <span style={{ fontSize: '1.8rem' }} role="img" aria-label="plant">
               🪴
             </span>
           )}
@@ -85,13 +92,14 @@ export default function CartItem({ item }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', minWidth: 0 }}>
         <Link
           to={`/plant/${item.plant_id}`}
-          style={{ color: '#2f4a38', fontWeight: 700, textDecoration: 'none' }}
+          className="ff-underline"
+          style={{ color: theme.color.ink, fontWeight: 700, textDecoration: 'none', fontSize: '1.02rem' }}
         >
           {item.name}
         </Link>
-        <span style={{ color: '#667', fontSize: '0.85rem' }}>{formatPKR(item.price)} each</span>
+        <span style={{ color: theme.color.muted, fontSize: '0.85rem' }}>{formatPKR(item.price)} each</span>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.2rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.35rem' }}>
           <button
             aria-label="Decrease quantity"
             onClick={() => changeQty(item.quantity - 1)}
@@ -100,7 +108,9 @@ export default function CartItem({ item }) {
           >
             −
           </button>
-          <span style={{ minWidth: 24, textAlign: 'center', fontWeight: 600 }}>{item.quantity}</span>
+          <span style={{ minWidth: 28, textAlign: 'center', fontWeight: 700, color: theme.color.ink }}>
+            {item.quantity}
+          </span>
           <button
             aria-label="Increase quantity"
             onClick={() => changeQty(item.quantity + 1)}
@@ -110,23 +120,24 @@ export default function CartItem({ item }) {
             +
           </button>
           {stock > 0 && item.quantity >= stock ? (
-            <span style={{ fontSize: '0.75rem', color: '#c0392b' }}>Max stock</span>
+            <span style={{ fontSize: '0.75rem', color: theme.color.danger, fontWeight: 600 }}>Max stock</span>
           ) : null}
         </div>
       </div>
 
       {/* Line total + remove */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.4rem' }}>
-        <strong style={{ color: '#1b7a3d' }}>{formatPKR(lineTotal)}</strong>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
+        <strong style={{ color: theme.color.primary, fontSize: '1.05rem' }}>{formatPKR(lineTotal)}</strong>
         <button
           onClick={() => run(() => removeFromCart(item.cart_item_id))}
           disabled={busy}
           style={{
             background: 'none',
             border: 'none',
-            color: '#c0392b',
+            color: theme.color.danger,
             cursor: busy ? 'default' : 'pointer',
-            fontSize: '0.85rem',
+            fontSize: '0.82rem',
+            fontWeight: 600,
             padding: 0,
           }}
         >

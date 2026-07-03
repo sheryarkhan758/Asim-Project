@@ -1,8 +1,14 @@
 import { formatPKR, formatDate } from '../utils/format.js';
+import { theme } from '../styles/theme.js';
 
-const rowStyle = { display: 'flex', gap: '0.75rem', padding: '0.5rem 0', borderBottom: '1px solid #eef2ef' };
-const labelStyle = { minWidth: 130, color: '#889', fontWeight: 600, fontSize: '0.85rem' };
-const valueStyle = { color: '#2f4a38', flex: 1 };
+const rowStyle = {
+  display: 'flex',
+  gap: '0.75rem',
+  padding: '0.7rem 0',
+  borderBottom: `1px solid ${theme.color.borderSoft}`,
+};
+const labelStyle = { minWidth: 130, color: theme.color.muted, fontWeight: 600, fontSize: '0.85rem' };
+const valueStyle = { color: theme.color.ink, flex: 1 };
 
 // Delivery + payment details for an order.
 export default function DeliveryInfo({ order }) {
@@ -11,15 +17,17 @@ export default function DeliveryInfo({ order }) {
   return (
     <section
       style={{
-        fontFamily: 'sans-serif',
-        border: '1px solid #e2e8e4',
-        borderRadius: 12,
-        padding: '1.25rem',
-        background: '#fbfdfb',
+        background: '#fff',
+        border: `1px solid ${theme.color.border}`,
+        borderRadius: theme.radius.lg,
+        boxShadow: theme.shadow.sm,
+        padding: '1.5rem',
         height: 'fit-content',
       }}
     >
-      <h2 style={{ color: '#2f4a38', marginTop: 0 }}>Delivery details</h2>
+      <h2 style={{ color: theme.color.ink, marginTop: 0, marginBottom: '0.75rem', fontSize: '1.2rem' }}>
+        Delivery details
+      </h2>
 
       <div style={rowStyle}>
         <span style={labelStyle}>Address</span>
@@ -35,14 +43,20 @@ export default function DeliveryInfo({ order }) {
       </div>
       <div style={rowStyle}>
         <span style={labelStyle}>Payment</span>
-        <span style={valueStyle}>
-          💵 {order.payment_method || 'COD'} — pay on delivery
-        </span>
+        <span style={valueStyle}>💵 {order.payment_method || 'COD'} — pay on delivery</span>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingTop: '0.85rem', marginTop: '0.35rem' }}>
-        <span style={{ fontWeight: 700, color: '#2f4a38' }}>🌿 Green Total</span>
-        <strong style={{ fontSize: '1.25rem', color: '#1b7a3d' }}>{formatPKR(order.total_amount)}</strong>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'baseline',
+          paddingTop: '1rem',
+          marginTop: '0.35rem',
+        }}
+      >
+        <span style={{ fontWeight: 700, color: theme.color.ink }}>🌿 Green Total</span>
+        <strong style={{ fontSize: '1.35rem', color: theme.color.primary }}>{formatPKR(order.total_amount)}</strong>
       </div>
     </section>
   );

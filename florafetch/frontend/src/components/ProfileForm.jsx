@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext.jsx';
+import { theme } from '../styles/theme.js';
 
 const controlStyle = {
   width: '100%',
   boxSizing: 'border-box',
-  padding: '0.6rem 0.75rem',
-  borderRadius: 8,
-  border: '1px solid #cdddd2',
+  padding: '0.7rem 0.85rem',
+  borderRadius: theme.radius.md,
+  border: `1px solid ${theme.color.border}`,
   fontSize: '0.95rem',
-  fontFamily: 'inherit',
-  background: '#fff',
+  fontFamily: theme.font.body,
+  background: theme.color.bgSoft,
 };
-const labelStyle = { display: 'block', fontWeight: 700, color: '#2f4a38', marginBottom: '0.4rem' };
+const labelStyle = { display: 'block', fontWeight: 700, color: theme.color.ink, marginBottom: '0.4rem' };
 
 // Edit name + phone (PUT /auth/profile via AuthContext.updateProfile).
 export default function ProfileForm() {
@@ -40,42 +41,67 @@ export default function ProfileForm() {
   };
 
   return (
-    <section style={{ border: '1px solid #e2e8e4', borderRadius: 12, padding: '1.25rem', background: '#fff', fontFamily: 'sans-serif' }}>
-      <h2 style={{ color: '#2f4a38', marginTop: 0 }}>Account details</h2>
+    <section
+      style={{
+        background: '#fff',
+        border: `1px solid ${theme.color.border}`,
+        borderRadius: theme.radius.lg,
+        boxShadow: theme.shadow.sm,
+        padding: '1.75rem',
+      }}
+    >
+      <h2 style={{ color: theme.color.ink, marginTop: 0, marginBottom: '1.25rem', fontSize: '1.2rem' }}>
+        Account details
+      </h2>
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '1.1rem' }}>
           <label htmlFor="full_name" style={labelStyle}>Full name</label>
           <input id="full_name" value={fullName} onChange={(e) => setFullName(e.target.value)} style={controlStyle} />
         </div>
 
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '1.1rem' }}>
           <label htmlFor="email" style={labelStyle}>Email</label>
-          <input id="email" value={user?.email || ''} disabled style={{ ...controlStyle, background: '#f4f6f4', color: '#889' }} />
-          <span style={{ fontSize: '0.75rem', color: '#889' }}>Email can't be changed.</span>
+          <input
+            id="email"
+            value={user?.email || ''}
+            disabled
+            style={{ ...controlStyle, background: theme.color.borderSoft, color: theme.color.muted, cursor: 'not-allowed' }}
+          />
+          <span style={{ fontSize: '0.75rem', color: theme.color.muted }}>Email can't be changed.</span>
         </div>
 
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '1.25rem' }}>
           <label htmlFor="phone" style={labelStyle}>Phone</label>
           <input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} style={controlStyle} />
         </div>
 
         {message ? (
-          <p style={{ color: message.type === 'ok' ? '#1b7a3d' : '#c0392b', fontSize: '0.9rem', margin: '0 0 0.75rem' }}>
+          <p
+            style={{
+              color: message.type === 'ok' ? theme.color.primary : theme.color.danger,
+              fontSize: '0.9rem',
+              margin: '0 0 0.9rem',
+              fontWeight: 600,
+            }}
+          >
             {message.text}
           </p>
         ) : null}
 
         <button
+          className="ff-btn"
           type="submit"
           disabled={saving}
           style={{
-            padding: '0.6rem 1.4rem',
-            borderRadius: 8,
+            padding: '0.7rem 1.6rem',
+            borderRadius: theme.radius.pill,
             border: 'none',
-            background: saving ? '#7bbf93' : '#1b7a3d',
+            background: saving ? theme.color.primaryLight : theme.color.primary,
             color: '#fff',
             fontWeight: 700,
+            fontFamily: theme.font.body,
             cursor: saving ? 'default' : 'pointer',
+            boxShadow: theme.shadow.sm,
           }}
         >
           {saving ? 'Saving…' : 'Save changes'}

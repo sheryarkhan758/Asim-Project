@@ -20,6 +20,12 @@ const Checkout = lazy(() => import('./pages/Checkout.jsx'));
 const OrderTracking = lazy(() => import('./pages/OrderTracking.jsx'));
 const Profile = lazy(() => import('./pages/Profile.jsx'));
 
+// Content / marketing pages.
+const About = lazy(() => import('./pages/About.jsx'));
+const CareGuides = lazy(() => import('./pages/CareGuides.jsx'));
+const Contact = lazy(() => import('./pages/Contact.jsx'));
+const FAQ = lazy(() => import('./pages/FAQ.jsx'));
+
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard.jsx'));
 const AdminPlants = lazy(() => import('./pages/admin/AdminPlants.jsx'));
 const AdminOrders = lazy(() => import('./pages/admin/AdminOrders.jsx'));
@@ -37,6 +43,12 @@ export default function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        {/* Content pages */}
+        <Route path="/about" element={<About />} />
+        <Route path="/care-guides" element={<CareGuides />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/faq" element={<FAQ />} />
 
         {/* Authenticated routes */}
         <Route

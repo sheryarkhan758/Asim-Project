@@ -4,6 +4,7 @@ export default function Modal({ title, onClose, children, width = 560 }) {
   return (
     <div
       onClick={onClose}
+      className="ff-backdrop"
       style={{
         position: 'fixed',
         inset: 0,
@@ -19,6 +20,7 @@ export default function Modal({ title, onClose, children, width = 560 }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
+        className="ff-modal"
         style={{
           background: '#fff',
           borderRadius: 14,

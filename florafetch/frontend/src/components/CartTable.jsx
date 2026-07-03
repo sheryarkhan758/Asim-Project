@@ -1,19 +1,29 @@
 import CartItem from './CartItem.jsx';
+import { theme } from '../styles/theme.js';
 
 // The list of cart lines. Each CartItem reads/writes the cart via CartContext.
 export default function CartTable({ items }) {
   return (
-    <div style={{ fontFamily: 'sans-serif' }}>
+    <div
+      style={{
+        background: '#fff',
+        border: `1px solid ${theme.color.border}`,
+        borderRadius: theme.radius.lg,
+        boxShadow: theme.shadow.sm,
+        padding: '0.5rem 1.5rem',
+      }}
+    >
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '64px 1fr auto',
+          gridTemplateColumns: '72px 1fr auto',
           gap: '1rem',
-          paddingBottom: '0.5rem',
-          borderBottom: '2px solid #e2e8e4',
-          color: '#889',
-          fontSize: '0.8rem',
+          padding: '0.9rem 0',
+          borderBottom: `2px solid ${theme.color.border}`,
+          color: theme.color.faint,
+          fontSize: '0.72rem',
           fontWeight: 700,
+          letterSpacing: '0.08em',
           textTransform: 'uppercase',
         }}
       >

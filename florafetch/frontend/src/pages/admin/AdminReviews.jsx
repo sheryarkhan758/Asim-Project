@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getModerationQueue, approveReview } from '../../api/reviews.js';
 import AdminLayout from '../../components/admin/AdminLayout.jsx';
 import ReviewQueue from '../../components/admin/ReviewQueue.jsx';
+import { theme } from '../../styles/theme.js';
 
 export default function AdminReviews() {
   const [reviews, setReviews] = useState([]);
@@ -48,29 +49,30 @@ export default function AdminReviews() {
         <div
           style={{
             marginBottom: '1rem',
-            padding: '0.6rem 0.9rem',
-            borderRadius: 8,
+            padding: '0.75rem 1rem',
+            borderRadius: theme.radius.md,
             fontSize: '0.9rem',
-            background: feedback.type === 'ok' ? '#e8f5ec' : '#fdecea',
+            fontWeight: 600,
+            background: feedback.type === 'ok' ? theme.color.primarySoft : '#fdecea',
             border: `1px solid ${feedback.type === 'ok' ? '#b6ddc2' : '#f5c2c0'}`,
-            color: feedback.type === 'ok' ? '#1b7a3d' : '#a1231d',
+            color: feedback.type === 'ok' ? theme.color.primary : '#a1231d',
           }}
         >
           {feedback.text}
         </div>
       ) : null}
 
-      {status === 'loading' && <p style={{ color: '#667' }}>Loading pending reviews…</p>}
-      {status === 'error' && <p style={{ color: '#c0392b' }}>Could not load the moderation queue.</p>}
+      {status === 'loading' && <p style={{ color: theme.color.muted }}>Loading pending reviews…</p>}
+      {status === 'error' && <p style={{ color: theme.color.danger }}>Could not load the moderation queue.</p>}
       {status === 'ready' &&
         (reviews.length === 0 ? (
-          <div style={{ background: '#fff', border: '1px solid #dfe5e0', borderRadius: 12, padding: '2rem', textAlign: 'center', color: '#667' }}>
-            <div style={{ fontSize: '2.5rem' }}>🎉</div>
-            <p style={{ fontWeight: 600, color: '#2f4a38', margin: '0.5rem 0 0' }}>No reviews pending moderation.</p>
+          <div style={{ background: '#fff', border: `1px solid ${theme.color.border}`, borderRadius: theme.radius.lg, boxShadow: theme.shadow.sm, padding: '2.5rem', textAlign: 'center', color: theme.color.muted }}>
+            <div style={{ fontSize: '2.75rem' }}>🎉</div>
+            <p style={{ fontFamily: theme.font.head, fontWeight: 700, color: theme.color.ink, margin: '0.5rem 0 0' }}>No reviews pending moderation.</p>
           </div>
         ) : (
           <>
-            <p style={{ color: '#556', marginTop: 0 }}>
+            <p style={{ color: theme.color.muted, marginTop: 0, fontWeight: 500 }}>
               {reviews.length} review{reviews.length === 1 ? '' : 's'} awaiting approval
             </p>
             <ReviewQueue reviews={reviews} onApprove={handleApprove} approvingId={approvingId} />

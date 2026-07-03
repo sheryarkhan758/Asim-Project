@@ -1,18 +1,28 @@
 import { useState } from 'react';
 import Modal from '../Modal.jsx';
+import { theme } from '../../styles/theme.js';
 
 const controlStyle = {
   width: '100%',
   boxSizing: 'border-box',
-  padding: '0.55rem 0.7rem',
-  borderRadius: 8,
-  border: '1px solid #cdddd2',
+  padding: '0.6rem 0.8rem',
+  borderRadius: theme.radius.sm,
+  border: `1px solid ${theme.color.border}`,
   fontSize: '0.95rem',
-  fontFamily: 'inherit',
-  background: '#fff',
+  fontFamily: theme.font.body,
+  color: theme.color.ink,
+  background: theme.color.bgSoft,
 };
-const labelStyle = { display: 'block', fontWeight: 700, color: '#2f4a38', marginBottom: '0.35rem', fontSize: '0.9rem' };
-const field = { marginBottom: '0.9rem' };
+const labelStyle = {
+  display: 'block',
+  fontWeight: 700,
+  color: theme.color.ink,
+  marginBottom: '0.35rem',
+  fontSize: '0.82rem',
+  textTransform: 'uppercase',
+  letterSpacing: '0.03em',
+};
+const field = { marginBottom: '1rem' };
 
 // Build the initial form state from an existing plant (edit) or blanks (add).
 function initialForm(plant) {
@@ -157,19 +167,19 @@ export default function PlantFormModal({ mode, plant, categories, onSubmit, onCl
           <label style={labelStyle}>Photo {isEdit ? '(leave empty to keep current)' : ''}</label>
           <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] || null)} />
           {isEdit && plant?.image_url && !imageFile ? (
-            <div style={{ marginTop: '0.5rem', color: '#889', fontSize: '0.8rem' }}>Current: {plant.image_url}</div>
+            <div style={{ marginTop: '0.5rem', color: theme.color.muted, fontSize: '0.8rem' }}>Current: {plant.image_url}</div>
           ) : null}
-          <div style={{ fontSize: '0.75rem', color: '#889', marginTop: '0.35rem' }}>JPG/PNG up to 2 MB.</div>
+          <div style={{ fontSize: '0.75rem', color: theme.color.muted, marginTop: '0.35rem' }}>JPG/PNG up to 2 MB.</div>
         </div>
 
-        {shownError ? <p style={{ color: '#c0392b', fontSize: '0.9rem', margin: '0 0 0.75rem' }}>{shownError}</p> : null}
+        {shownError ? <p style={{ color: theme.color.danger, fontSize: '0.9rem', fontWeight: 600, margin: '0 0 0.75rem' }}>{shownError}</p> : null}
 
         {/* Actions */}
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.5rem' }}>
-          <button type="button" onClick={onClose} disabled={submitting} style={{ padding: '0.6rem 1.2rem', borderRadius: 8, border: '1px solid #cdddd2', background: '#fff', color: '#556', fontWeight: 600, cursor: 'pointer' }}>
+          <button type="button" onClick={onClose} disabled={submitting} style={{ padding: '0.65rem 1.3rem', borderRadius: theme.radius.pill, border: `1.5px solid ${theme.color.border}`, background: '#fff', color: theme.color.body, fontWeight: 700, cursor: 'pointer' }}>
             Cancel
           </button>
-          <button type="submit" disabled={submitting} style={{ padding: '0.6rem 1.4rem', borderRadius: 8, border: 'none', background: submitting ? '#7bbf93' : '#1b7a3d', color: '#fff', fontWeight: 700, cursor: submitting ? 'default' : 'pointer' }}>
+          <button className="ff-btn" type="submit" disabled={submitting} style={{ padding: '0.65rem 1.6rem', borderRadius: theme.radius.pill, border: 'none', background: submitting ? '#7bbf93' : theme.color.primary, color: '#fff', fontWeight: 700, cursor: submitting ? 'default' : 'pointer', boxShadow: theme.shadow.sm }}>
             {submitting ? 'Saving…' : isEdit ? 'Save changes' : 'Add plant'}
           </button>
         </div>

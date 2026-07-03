@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { theme } from '../styles/theme.js';
 
 // Plant-themed card container shared by the Login and Register pages.
 export default function AuthCard({ title, subtitle, children, footer }) {
@@ -9,9 +10,11 @@ export default function AuthCard({ title, subtitle, children, footer }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '2rem 1rem',
-        background: 'linear-gradient(160deg, #f2f8f3 0%, #e8f3ea 100%)',
-        fontFamily: 'sans-serif',
+        padding: '2.5rem 1rem',
+        backgroundImage: `${theme.overlay.forestSoft}, url(${theme.image.forest})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
       }}
     >
       <div

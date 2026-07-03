@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react';
 import { getCategories } from '../api/categories.js';
+import { theme } from '../styles/theme.js';
 
-const labelStyle = { display: 'block', fontWeight: 700, color: '#2f4a38', marginBottom: '0.4rem' };
+const labelStyle = {
+  display: 'block',
+  fontWeight: 700,
+  fontSize: '0.9rem',
+  color: theme.color.ink,
+  marginBottom: '0.45rem',
+};
 const controlStyle = {
   width: '100%',
   boxSizing: 'border-box',
-  padding: '0.5rem',
-  borderRadius: 8,
-  border: '1px solid #cdddd2',
+  padding: '0.6rem 0.7rem',
+  borderRadius: theme.radius.md,
+  border: `1.5px solid ${theme.color.border}`,
   fontSize: '0.95rem',
-  background: '#fff',
+  fontFamily: theme.font.body,
+  color: theme.color.ink,
+  background: theme.color.bgSoft,
 };
 
 // Controlled filter panel. `values` come from the URL (Shop owns them); every
@@ -42,26 +51,46 @@ export default function FilterSidebar({ values, onChange, onClear }) {
   const hasFilters =
     values.category || values.low_maint || values.pet_friendly || values.min_price || values.max_price;
 
+  const checkboxLabel = {
+    display: 'flex',
+    gap: '0.6rem',
+    alignItems: 'center',
+    cursor: 'pointer',
+    fontWeight: 600,
+    color: theme.color.body,
+    fontSize: '0.95rem',
+  };
+
   return (
     <aside
       style={{
-        fontFamily: 'sans-serif',
-        border: '1px solid #e2e8e4',
-        borderRadius: 12,
-        padding: '1.25rem',
-        background: '#fbfdfb',
+        border: `1px solid ${theme.color.border}`,
+        borderRadius: theme.radius.lg,
+        padding: '1.35rem',
+        background: theme.color.white,
+        boxShadow: theme.shadow.sm,
         display: 'flex',
         flexDirection: 'column',
-        gap: '1.25rem',
+        gap: '1.4rem',
         height: 'fit-content',
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h3 style={{ margin: 0, color: '#2f4a38' }}>Filters</h3>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
+        <h3 style={{ margin: 0, color: theme.color.ink, fontSize: '1.15rem' }}>Filters</h3>
         {hasFilters ? (
           <button
             onClick={onClear}
-            style={{ background: 'none', border: 'none', color: '#1b7a3d', cursor: 'pointer', fontSize: '0.85rem' }}
+            className="ff-btn"
+            style={{
+              background: theme.color.primarySoft,
+              border: 'none',
+              color: theme.color.primary,
+              cursor: 'pointer',
+              fontSize: '0.8rem',
+              fontWeight: 700,
+              padding: '0.3rem 0.7rem',
+              borderRadius: theme.radius.pill,
+            }}
           >
             Clear all
           </button>
@@ -89,23 +118,28 @@ export default function FilterSidebar({ values, onChange, onClear }) {
       </div>
 
       {/* Trait toggles */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <label style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', cursor: 'pointer' }}>
-          <input
-            type="checkbox"
-            checked={values.low_maint}
-            onChange={(e) => onChange('low_maint', e.target.checked)}
-          />
-          Low Maintenance
-        </label>
-        <label style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', cursor: 'pointer' }}>
-          <input
-            type="checkbox"
-            checked={values.pet_friendly}
-            onChange={(e) => onChange('pet_friendly', e.target.checked)}
-          />
-          Pet Friendly
-        </label>
+      <div>
+        <span style={labelStyle}>Traits</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+          <label style={checkboxLabel}>
+            <input
+              type="checkbox"
+              checked={values.low_maint}
+              onChange={(e) => onChange('low_maint', e.target.checked)}
+              style={{ accentColor: theme.color.primary, width: 17, height: 17 }}
+            />
+            Low Maintenance
+          </label>
+          <label style={checkboxLabel}>
+            <input
+              type="checkbox"
+              checked={values.pet_friendly}
+              onChange={(e) => onChange('pet_friendly', e.target.checked)}
+              style={{ accentColor: theme.color.primary, width: 17, height: 17 }}
+            />
+            Pet Friendly
+          </label>
+        </div>
       </div>
 
       {/* Price range */}
@@ -122,7 +156,7 @@ export default function FilterSidebar({ values, onChange, onClear }) {
             onKeyDown={(e) => e.key === 'Enter' && commit('min_price')(minLocal)}
             style={controlStyle}
           />
-          <span style={{ color: '#889' }}>–</span>
+          <span style={{ color: theme.color.faint }}>–</span>
           <input
             type="number"
             min="0"

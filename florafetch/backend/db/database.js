@@ -22,4 +22,23 @@ if (!initialized) {
   db.exec(schema);
 }
 
+// Lightweight forward-compatible migration: ensure tables added after the
+// initial schema exist even on databases created before they were introduced.
+// All statements are idempotent (CREATE TABLE IF NOT EXISTS).
+db.exec(`
+  CREATE TABLE IF NOT EXISTS contact_messages (
+    message_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name       TEXT    NOT NULL,
+    email      TEXT    NOT NULL,
+    subject    TEXT,
+    message    TEXT    NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+  CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+    subscriber_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email         TEXT    UNIQUE NOT NULL,
+    created_at    DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+`);
+
 module.exports = db;

@@ -4,6 +4,10 @@ import { getPlants } from '../api/plants.js';
 import FilterSidebar from '../components/FilterSidebar.jsx';
 import ProductGrid from '../components/ProductGrid.jsx';
 import PaginationBar from '../components/PaginationBar.jsx';
+import Container from '../components/ui/Container.jsx';
+import SectionHeading from '../components/ui/SectionHeading.jsx';
+import Button from '../components/ui/Button.jsx';
+import { theme } from '../styles/theme.js';
 
 const PAGE_SIZE = 6;
 
@@ -81,62 +85,61 @@ export default function Shop() {
   const visible = plants.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   return (
-    <div className="ff-page" style={{ fontFamily: 'sans-serif', padding: '1.5rem' }}>
-      <h1 style={{ color: '#2f4a38', marginTop: 0 }}>Shop plants</h1>
+    <div className="ff-page" style={{ background: theme.color.bgSoft, minHeight: '70vh', padding: '2.5rem 0 3.5rem' }}>
+      <Container>
+        <SectionHeading
+          eyebrow="Our collection"
+          title="Shop plants"
+          subtitle="Browse our handpicked greenery — filter by category, care level and budget to find your perfect match."
+          align="left"
+          style={{ marginBottom: '2rem' }}
+        />
 
-      <div className="ff-split-left" style={{ '--ff-aside': '240px' }}>
-        <FilterSidebar values={filters} onChange={setFilter} onClear={clearFilters} />
+        <div className="ff-split-left" style={{ '--ff-aside': '260px' }}>
+          <FilterSidebar values={filters} onChange={setFilter} onClear={clearFilters} />
 
-        <div>
-          {status === 'loading' && <p style={{ color: '#667' }}>Loading plants…</p>}
-          {status === 'error' && (
-            <p style={{ color: '#c0392b' }}>Something went wrong loading plants. Please try again.</p>
-          )}
+          <div>
+            {status === 'loading' && <p style={{ color: theme.color.muted }}>Loading plants…</p>}
+            {status === 'error' && (
+              <p style={{ color: theme.color.danger }}>Something went wrong loading plants. Please try again.</p>
+            )}
 
-          {status === 'ready' && (
-            <>
-              <p style={{ color: '#667', margin: '0 0 1rem' }}>
-                {plants.length} {plants.length === 1 ? 'plant' : 'plants'} found
-              </p>
+            {status === 'ready' && (
+              <>
+                <p style={{ color: theme.color.muted, fontWeight: 600, margin: '0 0 1.25rem' }}>
+                  {plants.length} {plants.length === 1 ? 'plant' : 'plants'} found
+                </p>
 
-              {plants.length === 0 ? (
-                <div
-                  style={{
-                    textAlign: 'center',
-                    padding: '3rem 1rem',
-                    border: '1px dashed #cdddd2',
-                    borderRadius: 12,
-                    color: '#667',
-                  }}
-                >
-                  <div style={{ fontSize: '2.5rem' }}>🌱</div>
-                  <p style={{ fontWeight: 600, color: '#2f4a38' }}>No plants match these filters.</p>
-                  <button
-                    onClick={clearFilters}
+                {plants.length === 0 ? (
+                  <div
                     style={{
-                      marginTop: '0.5rem',
-                      background: '#1b7a3d',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: 8,
-                      padding: '0.5rem 1rem',
-                      cursor: 'pointer',
-                      fontWeight: 600,
+                      textAlign: 'center',
+                      padding: '3.5rem 1.5rem',
+                      border: `1px dashed ${theme.color.border}`,
+                      borderRadius: theme.radius.lg,
+                      background: theme.color.white,
+                      color: theme.color.muted,
                     }}
                   >
-                    Clear filters
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <ProductGrid plants={visible} />
-                  <PaginationBar page={currentPage} pageCount={pageCount} onPageChange={setPage} />
-                </>
-              )}
-            </>
-          )}
+                    <div style={{ fontSize: '2.75rem' }}>🌱</div>
+                    <p style={{ fontWeight: 700, color: theme.color.ink, margin: '0.5rem 0 1rem' }}>
+                      No plants match these filters.
+                    </p>
+                    <Button onClick={clearFilters} variant="primary">
+                      Clear filters
+                    </Button>
+                  </div>
+                ) : (
+                  <>
+                    <ProductGrid plants={visible} />
+                    <PaginationBar page={currentPage} pageCount={pageCount} onPageChange={setPage} />
+                  </>
+                )}
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

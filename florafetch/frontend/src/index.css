@@ -3,8 +3,17 @@
    layout helpers, and accessible touch-target sizing that inline styles can't
    express (media queries + minimum tap sizes). */
 
+:root {
+  --ff-font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ff-font-head: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
@@ -14,13 +23,47 @@ body {
 }
 
 body {
-  font-family: sans-serif;
-  color: #2f4a38;
+  font-family: var(--ff-font-body);
+  color: #20372a;
+  background: #ffffff;
   -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.55;
+}
+
+/* Headings use the display font. A direct element rule beats the inherited
+   inline `font-family: sans-serif` many components set on their wrapper, so
+   headings pick up Poppins without editing every file. */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--ff-font-head);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 img {
   max-width: 100%;
+}
+
+/* Selection + focus-visible polish. */
+::selection {
+  background: rgba(27, 122, 61, 0.16);
+}
+:focus-visible {
+  outline: 2px solid #1b7a3d;
+  outline-offset: 2px;
+}
+
+/* Centered content container. */
+.ff-container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
 /* ---- Touch targets: min 44x44px for interactive controls (WCAG 2.5.5) ---- */
@@ -87,5 +130,17 @@ input[type='radio'] {
   .ff-page {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
+  }
+}
+
+/* Footer columns collapse on small screens. */
+@media (max-width: 760px) {
+  .ff-footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 460px) {
+  .ff-footer-grid {
+    grid-template-columns: 1fr !important;
   }
 }

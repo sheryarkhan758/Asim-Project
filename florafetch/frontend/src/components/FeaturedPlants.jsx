@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { getPlants } from '../api/plants.js';
 import ProductGrid from './ProductGrid.jsx';
+import Container from './ui/Container.jsx';
+import SectionHeading from './ui/SectionHeading.jsx';
+import Button from './ui/Button.jsx';
+import { theme } from '../styles/theme.js';
 
 const FEATURED_COUNT = 4;
 
@@ -24,22 +27,39 @@ export default function FeaturedPlants() {
   }, []);
 
   return (
-    <section style={{ padding: '1rem 1.5rem', fontFamily: 'sans-serif' }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
-        <h2 style={{ color: '#2f4a38' }}>Featured plants</h2>
-        <Link to="/shop" style={{ color: '#1b7a3d', fontWeight: 600, fontSize: '0.9rem' }}>
-          View all →
-        </Link>
-      </div>
+    <section style={{ padding: '2.5rem 0 1rem' }}>
+      <Container>
+        <SectionHeading
+          align="center"
+          eyebrow="Fresh picks"
+          title="Featured plants"
+          subtitle="Hand-picked favourites that thrive in Pakistani homes — ready to ship today."
+        />
 
-      {status === 'loading' && <p style={{ color: '#667' }}>Loading plants…</p>}
-      {status === 'error' && <p style={{ color: '#c0392b' }}>Could not load plants right now.</p>}
-      {status === 'ready' &&
-        (plants.length ? (
-          <ProductGrid plants={plants} />
-        ) : (
-          <p style={{ color: '#667' }}>No plants available yet — check back soon.</p>
-        ))}
+        {status === 'loading' && (
+          <p style={{ color: theme.color.muted, textAlign: 'center' }}>Loading plants…</p>
+        )}
+        {status === 'error' && (
+          <p style={{ color: theme.color.danger, textAlign: 'center' }}>
+            Could not load plants right now.
+          </p>
+        )}
+        {status === 'ready' &&
+          (plants.length ? (
+            <>
+              <ProductGrid plants={plants} />
+              <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+                <Button to="/shop" variant="ghost">
+                  Browse all plants →
+                </Button>
+              </div>
+            </>
+          ) : (
+            <p style={{ color: theme.color.muted, textAlign: 'center' }}>
+              No plants available yet — check back soon.
+            </p>
+          ))}
+      </Container>
     </section>
   );
 }

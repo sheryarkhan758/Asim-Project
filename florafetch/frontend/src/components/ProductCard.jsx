@@ -45,6 +45,7 @@ export default function ProductCard({ plant }) {
 
   return (
     <div
+      className="ff-card"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -56,7 +57,7 @@ export default function ProductCard({ plant }) {
       }}
     >
       {/* Image (links to detail) */}
-      <Link to={`/plant/${plant.plant_id}`} style={{ display: 'block' }}>
+      <Link to={`/plant/${plant.plant_id}`} className="ff-zoom" style={{ display: 'block' }}>
         <div
           style={{
             aspectRatio: '1 / 1',
@@ -118,6 +119,7 @@ export default function ProductCard({ plant }) {
           <button
             onClick={handleAdd}
             disabled={outOfStock || adding}
+            className="ff-btn"
             style={{
               border: 'none',
               borderRadius: 8,

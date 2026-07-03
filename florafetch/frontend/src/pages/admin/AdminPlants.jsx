@@ -5,6 +5,7 @@ import AdminLayout from '../../components/admin/AdminLayout.jsx';
 import PlantTable from '../../components/admin/PlantTable.jsx';
 import PlantFormModal from '../../components/admin/PlantFormModal.jsx';
 import DeleteConfirm from '../../components/admin/DeleteConfirm.jsx';
+import { theme } from '../../styles/theme.js';
 
 export default function AdminPlants() {
   const [plants, setPlants] = useState([]);
@@ -90,13 +91,27 @@ export default function AdminPlants() {
 
   return (
     <AdminLayout title="Inventory">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
-        <p style={{ color: '#556', margin: 0 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
+        <p style={{ color: theme.color.muted, margin: 0, fontWeight: 500 }}>
           {status === 'ready' ? `${plants.length} plant${plants.length === 1 ? '' : 's'} in the catalog` : ''}
         </p>
         <button
+          className="ff-btn"
           onClick={() => { setFormError(''); setModal({ type: 'add' }); }}
-          style={{ background: '#1b7a3d', color: '#fff', border: 'none', borderRadius: 8, padding: '0.6rem 1.2rem', fontWeight: 700, cursor: 'pointer' }}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            background: theme.color.primary,
+            color: '#fff',
+            border: 'none',
+            borderRadius: theme.radius.pill,
+            padding: '0.7rem 1.4rem',
+            fontWeight: 700,
+            fontSize: '0.92rem',
+            cursor: 'pointer',
+            boxShadow: theme.shadow.sm,
+          }}
         >
           ＋ Add plant
         </button>
@@ -106,24 +121,25 @@ export default function AdminPlants() {
         <div
           style={{
             marginBottom: '1rem',
-            padding: '0.6rem 0.9rem',
-            borderRadius: 8,
+            padding: '0.75rem 1rem',
+            borderRadius: theme.radius.md,
             fontSize: '0.9rem',
-            background: feedback.type === 'ok' ? '#e8f5ec' : '#fdecea',
+            fontWeight: 600,
+            background: feedback.type === 'ok' ? theme.color.primarySoft : '#fdecea',
             border: `1px solid ${feedback.type === 'ok' ? '#b6ddc2' : '#f5c2c0'}`,
-            color: feedback.type === 'ok' ? '#1b7a3d' : '#a1231d',
+            color: feedback.type === 'ok' ? theme.color.primary : '#a1231d',
           }}
         >
           {feedback.text}
         </div>
       ) : null}
 
-      <div style={{ background: '#fff', border: '1px solid #dfe5e0', borderRadius: 12, padding: '1.25rem' }}>
-        {status === 'loading' && <p style={{ color: '#667' }}>Loading inventory…</p>}
-        {status === 'error' && <p style={{ color: '#c0392b' }}>Could not load inventory.</p>}
+      <div style={{ background: '#fff', border: `1px solid ${theme.color.border}`, borderRadius: theme.radius.lg, boxShadow: theme.shadow.sm, padding: '1.35rem' }}>
+        {status === 'loading' && <p style={{ color: theme.color.muted }}>Loading inventory…</p>}
+        {status === 'error' && <p style={{ color: theme.color.danger }}>Could not load inventory.</p>}
         {status === 'ready' &&
           (plants.length === 0 ? (
-            <p style={{ color: '#889' }}>No plants yet. Add your first plant to get started.</p>
+            <p style={{ color: theme.color.muted }}>No plants yet. Add your first plant to get started.</p>
           ) : (
             <PlantTable
               plants={plants}

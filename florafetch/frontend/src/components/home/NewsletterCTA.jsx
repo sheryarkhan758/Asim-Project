@@ -35,7 +35,7 @@ export default function NewsletterCTA() {
   };
 
   return (
-    <section style={{ padding: '3.5rem 0' }}>
+    <section style={{ padding: '3rem 0' }}>
       <Container>
         <Reveal
           style={{

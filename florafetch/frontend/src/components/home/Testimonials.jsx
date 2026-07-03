@@ -34,7 +34,7 @@ const REVIEWS = [
 // Social-proof grid on a soft tinted background.
 export default function Testimonials() {
   return (
-    <section style={{ padding: '3.5rem 0', background: theme.color.bgSoft }}>
+    <section style={{ padding: '3rem 0', background: theme.color.bgSoft }}>
       <Container>
         <SectionHeading
           eyebrow="Loved by plant parents"

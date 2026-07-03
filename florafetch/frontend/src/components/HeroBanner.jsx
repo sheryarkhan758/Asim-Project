@@ -121,7 +121,7 @@ export default function HeroBanner() {
               '--ff-delay': '260ms',
             }}
           >
-            Fresh, healthy plants delivered to your doorstep across Pakistan — with Cash on Delivery
+            Fresh, healthy plants delivered to your doorstep across Pakistan, with Cash on Delivery
             and expert care guides for every leaf.
           </p>
           <div

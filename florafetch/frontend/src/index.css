@@ -91,6 +91,51 @@ input[type='checkbox'],
 input[type='radio'] {
   min-width: 20px;
   min-height: 20px;
+  accent-color: #1b7a3d;
+  cursor: pointer;
+}
+
+/* ---- Professional dropdowns ---- */
+/* Replace the inconsistent native arrow with a custom chevron and add a soft
+   focus ring. `!important` on the background/appearance beats the inline
+   `background:#fff` many <select>s set, so the chevron always shows while each
+   component keeps its own border/padding. */
+select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236a7b70' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.8rem center !important;
+  background-size: 1rem !important;
+  padding-right: 2.4rem !important;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+select:hover {
+  border-color: #1b7a3d !important;
+}
+select:focus,
+select:focus-visible {
+  outline: none !important;
+  border-color: #1b7a3d !important;
+  box-shadow: 0 0 0 3px rgba(27, 122, 61, 0.18) !important;
+}
+select:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+select option {
+  color: #20372a;
+  background: #fff;
+}
+
+/* Matching soft focus ring for text inputs & textareas (consistent, polished). */
+input:not([type='checkbox']):not([type='radio']):focus,
+textarea:focus {
+  outline: none;
+  border-color: #1b7a3d;
+  box-shadow: 0 0 0 3px rgba(27, 122, 61, 0.15);
 }
 
 /* Navbar links get a full-height tap area. */

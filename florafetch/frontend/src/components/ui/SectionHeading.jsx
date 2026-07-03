@@ -17,7 +17,7 @@ export default function SectionHeading({
         textAlign: align,
         maxWidth: centered ? 640 : undefined,
         margin: centered ? '0 auto' : undefined,
-        marginBottom: '2rem',
+        marginBottom: '1.75rem',
         ...style,
       }}
     >

@@ -189,3 +189,58 @@ textarea:focus {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ---- Styled dropdowns (custom chevron, focus ring) ---- */
+select.ff-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%231b7a3d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M1 1.5 6 6.5l5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 12px 8px;
+  padding-right: 2.5rem !important;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+select.ff-select:hover:not(:disabled) {
+  border-color: #1b7a3d;
+}
+select.ff-select:focus-visible,
+select.ff-select:focus {
+  outline: none;
+  border-color: #1b7a3d;
+  box-shadow: 0 0 0 3px rgba(27, 122, 61, 0.16);
+}
+select.ff-select:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+/* Options render via the OS menu; these apply where the browser allows it. */
+select.ff-select option {
+  background: #ffffff;
+  color: #20372a;
+  font-weight: 600;
+  padding: 8px;
+}
+
+/* ---- Footer social icons: brand colour on hover ---- */
+.ff-social {
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.ff-social:hover {
+  background: var(--ff-brand, rgba(255, 255, 255, 0.28)) !important;
+}
+.ff-social svg {
+  display: block;
+}
+
+/* ---- Admin section tabs ---- */
+.ff-admin-tab:hover {
+  color: #20372a !important;
+}
+@media (max-width: 520px) {
+  .ff-admin-account {
+    display: none;
+  }
+}

@@ -5,7 +5,7 @@ import Reveal from '../Reveal.jsx';
 import { subscribeNewsletter } from '../../api/newsletter.js';
 import { theme } from '../../styles/theme.js';
 
-// Email capture band — validates locally, then persists the subscriber via the
+// Email capture band, validates locally, then persists the subscriber via the
 // backend /newsletter endpoint and shows the server's confirmation message.
 export default function NewsletterCTA() {
   const [email, setEmail] = useState('');
@@ -56,7 +56,7 @@ export default function NewsletterCTA() {
             Grow your inbox, too
           </h2>
           <p style={{ margin: '0 auto 1.5rem', maxWidth: 520, opacity: 0.95, lineHeight: 1.6 }}>
-            Get seasonal plant-care tips, restock alerts and subscriber-only offers. No spam — just
+            Get seasonal plant-care tips, restock alerts and subscriber-only offers. No spam, just
             greener days.
           </p>
 

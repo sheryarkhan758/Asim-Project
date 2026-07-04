@@ -49,7 +49,7 @@ export default function OrderStatusStepper({ status }) {
                   transition: 'background 0.3s ease',
                 }}
               >
-                {done ? '✓' : ICONS[i]}
+                {done ? '✅' : ICONS[i]}
               </div>
               <span
                 style={{

@@ -1,6 +1,6 @@
 // Renders validation / error text. Used two ways:
-//   variant="field"  — small inline message under a single input
-//   variant="banner" — a boxed error banner (e.g. an API error) above the form
+//   variant="field", small inline message under a single input
+//   variant="banner", a boxed error banner (e.g. an API error) above the form
 // Renders nothing when there are no messages.
 export default function ValidationMessages({ messages, variant = 'field' }) {
   const list = (Array.isArray(messages) ? messages : [messages]).filter(Boolean);

@@ -20,8 +20,8 @@ export default function Testimonial({ quote, name, location, avatar = '🌱', ra
       }}
     >
       <div aria-label={`${rating} out of 5 stars`} style={{ color: theme.color.star, fontSize: '1rem', letterSpacing: '0.1em' }}>
-        {'★'.repeat(rating)}
-        <span style={{ color: '#e2e8e4' }}>{'★'.repeat(5 - rating)}</span>
+        {'⭐'.repeat(rating)}
+        <span style={{ color: '#e2e8e4' }}>{'☆'.repeat(5 - rating)}</span>
       </div>
       <blockquote style={{ margin: 0, color: theme.color.body, fontSize: '1rem', lineHeight: 1.65 }}>
         “{quote}”

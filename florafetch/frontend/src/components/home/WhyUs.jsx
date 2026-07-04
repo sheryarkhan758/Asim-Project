@@ -8,7 +8,7 @@ const BENEFITS = [
   {
     icon: '🌿',
     title: 'Nursery-fresh & healthy',
-    text: 'Every plant is hand-picked and inspected the morning it ships, so it arrives thriving — not tired from a warehouse shelf.',
+    text: 'Every plant is hand-picked and inspected the morning it ships, so it arrives thriving, not tired from a warehouse shelf.',
   },
   {
     icon: '📦',
@@ -23,7 +23,7 @@ const BENEFITS = [
   {
     icon: '🔄',
     title: 'Worry-free guarantee',
-    text: "If your plant arrives damaged, we'll replace it free within 7 days. Simply reach out — no complicated returns.",
+    text: "If your plant arrives damaged, we'll replace it free within 7 days. Simply reach out. No complicated returns.",
   },
 ];
 

@@ -60,7 +60,7 @@ export default function PlantDetail() {
         <h1 style={{ color: theme.color.ink }}>Plant not found</h1>
         <p style={{ color: theme.color.muted }}>This plant may have been removed or the link is incorrect.</p>
         <Link to="/shop" className="ff-underline" style={backLink}>
-          ← Back to the shop
+          ⬅️ Back to the shop
         </Link>
       </Container>
     );
@@ -72,7 +72,7 @@ export default function PlantDetail() {
         <h1 style={{ color: theme.color.ink }}>Something went wrong</h1>
         <p style={{ color: theme.color.muted }}>We couldn't load this plant. Please try again.</p>
         <Link to="/shop" className="ff-underline" style={backLink}>
-          ← Back to the shop
+          ⬅️ Back to the shop
         </Link>
       </Container>
     );
@@ -85,7 +85,7 @@ export default function PlantDetail() {
       <Container>
         <article>
           <Link to="/shop" className="ff-underline" style={backLink}>
-            ← Back to shop
+            ⬅️ Back to shop
           </Link>
 
           {/* Top: gallery + core info */}

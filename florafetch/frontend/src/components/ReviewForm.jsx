@@ -94,7 +94,7 @@ export default function ReviewForm({ plantId }) {
               transition: 'color 0.15s ease',
             }}
           >
-            ★
+            {i <= (hover || rating) ? '⭐' : '☆'}
           </button>
         ))}
       </div>

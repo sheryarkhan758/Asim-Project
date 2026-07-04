@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// localStorage keys — shared with AuthContext so the interceptors and the
+// localStorage keys, shared with AuthContext so the interceptors and the
 // context read/write the exact same slots.
 export const TOKEN_KEY = 'ff_token';
 export const USER_KEY = 'ff_user';

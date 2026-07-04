@@ -27,7 +27,7 @@ function StatusCard({ emoji, title, text }) {
         <h1 style={{ color: theme.color.ink, margin: '0.75rem 0 0.4rem', fontSize: '1.5rem' }}>{title}</h1>
         <p style={{ color: theme.color.muted, margin: '0 0 1.5rem' }}>{text}</p>
         <Button to="/profile" variant="ghost">
-          ← View your orders
+          ⬅️ View your orders
         </Button>
       </div>
     </Container>
@@ -92,7 +92,7 @@ export default function OrderTracking() {
         className="ff-underline"
         style={{ color: theme.color.primary, fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none' }}
       >
-        ← Back to your orders
+        ⬅️ Back to your orders
       </Link>
 
       <div

@@ -9,7 +9,7 @@ const ITEMS = [
   { icon: '📖', title: 'Expert care guides', sub: 'For every plant' },
 ];
 
-// Trust badges shown right under the hero — reassurance at a glance.
+// Trust badges shown right under the hero, reassurance at a glance.
 export default function FeatureStrip() {
   return (
     <Container style={{ marginTop: '-1.5rem', marginBottom: '0.5rem', position: 'relative', zIndex: 2 }}>

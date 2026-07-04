@@ -43,7 +43,7 @@ function seed() {
       categoryId[c.name] = info.lastInsertRowid;
     }
 
-    // Plants — image_url is derived from the slug; slug/imageQuery are not stored.
+    // Plants, image_url is derived from the slug; slug/imageQuery are not stored.
     for (const p of plants) {
       const { category, slug, imageQuery, ...rest } = p;
       insertPlant.run({

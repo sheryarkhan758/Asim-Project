@@ -1,4 +1,4 @@
-// Format a numeric PKR price like the spec's "Green Total" — e.g. 1200 -> "Rs 1,200".
+// Format a numeric PKR price like the spec's "Green Total", e.g. 1200 -> "Rs 1,200".
 export function formatPKR(amount) {
   const n = Number(amount) || 0;
   return `Rs ${n.toLocaleString('en-PK')}`;

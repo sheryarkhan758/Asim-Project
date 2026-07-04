@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
   },
 });
 
-// Images only — reject anything that isn't an image/* mimetype.
+// Images only, reject anything that isn't an image/* mimetype.
 function fileFilter(req, file, cb) {
   if (/^image\//.test(file.mimetype)) {
     cb(null, true);

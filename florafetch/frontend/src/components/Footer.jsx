@@ -1,6 +1,14 @@
 import { Link } from 'react-router-dom';
 import Container from './ui/Container.jsx';
+import { Facebook, Instagram, TwitterX, Pinterest } from './ui/BrandIcons.jsx';
 import { theme } from '../styles/theme.js';
+
+const SOCIALS = [
+  { label: 'Facebook', href: 'https://facebook.com', Icon: Facebook, brand: '#1877F2' },
+  { label: 'Instagram', href: 'https://instagram.com', Icon: Instagram, brand: '#E1306C' },
+  { label: 'X (Twitter)', href: 'https://x.com', Icon: TwitterX, brand: '#000000' },
+  { label: 'Pinterest', href: 'https://pinterest.com', Icon: Pinterest, brand: '#BD081C' },
+];
 
 const COLUMNS = [
   {
@@ -65,29 +73,32 @@ export default function Footer() {
             </div>
             <p style={{ color: 'rgba(255,255,255,0.72)', fontSize: '0.92rem', lineHeight: 1.7, margin: '0.8rem 0 1rem', maxWidth: 300 }}>
               Pakistan's friendliest online plant marketplace. Fresh greenery, safe delivery and
-              care support — all with Cash on Delivery.
+              care support, all with Cash on Delivery.
             </p>
             <div style={{ display: 'flex', gap: '0.6rem' }}>
-              {['📘', '📸', '🐦', '📌'].map((icon, i) => (
+              {SOCIALS.map(({ label, href, Icon, brand }) => (
                 <a
-                  key={i}
-                  href="#"
-                  aria-label="social link"
-                  className="ff-lift"
-                  onClick={(e) => e.preventDefault()}
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  title={label}
+                  className="ff-lift ff-social"
                   style={{
+                    '--ff-brand': brand,
                     width: 38,
                     height: 38,
                     borderRadius: '50%',
                     background: 'rgba(255,255,255,0.12)',
+                    color: '#fff',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     textDecoration: 'none',
-                    fontSize: '1rem',
                   }}
                 >
-                  {icon}
+                  <Icon size={18} color="currentColor" />
                 </a>
               ))}
             </div>

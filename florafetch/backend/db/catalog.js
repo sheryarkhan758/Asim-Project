@@ -1,4 +1,4 @@
-// FloraFetch catalog data — 4 categories, 40 plants (10 per category).
+// FloraFetch catalog data, 4 categories, 40 plants (10 per category).
 // `slug` drives the image filename (/uploads/<slug>.jpg) and `imageQuery` is
 // used by scripts/fetch-images to pull a matching professional photo.
 

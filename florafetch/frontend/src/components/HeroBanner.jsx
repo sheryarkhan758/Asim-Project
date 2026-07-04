@@ -18,7 +18,7 @@ export default function HeroBanner() {
           margin: '0 auto',
         }}
       >
-        {/* Forest photo layer — slowly zooms (Ken Burns) */}
+        {/* Forest photo layer, slowly zooms (Ken Burns) */}
         <div
           className="ff-kenburns"
           aria-hidden="true"
@@ -96,7 +96,7 @@ export default function HeroBanner() {
               '--ff-delay': '60ms',
             }}
           >
-            <span style={{ color: theme.color.star }}>★★★★★</span> Trusted by 8,500+ plant lovers
+            <span style={{ color: theme.color.star }}>⭐⭐⭐⭐⭐</span> Trusted by 8,500+ plant lovers
           </span>
 
           <h1
@@ -135,7 +135,7 @@ export default function HeroBanner() {
             }}
           >
             <Button to="/shop" variant="light" shine>
-              Shop plants →
+              Shop plants ➡️
             </Button>
             <Button
               to="/care-guides"

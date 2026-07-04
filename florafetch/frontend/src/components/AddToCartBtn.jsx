@@ -145,7 +145,7 @@ export default function AddToCartBtn({ plant }) {
             boxShadow: theme.shadow.sm,
           }}
         >
-          {added ? 'Added to cart ✓' : adding ? 'Adding…' : 'Add to cart'}
+          {added ? 'Added to cart ✅' : adding ? 'Adding…' : 'Add to cart'}
         </button>
       </div>
 

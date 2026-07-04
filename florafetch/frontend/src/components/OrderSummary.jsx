@@ -66,7 +66,7 @@ export default function OrderSummary({ total, itemCount }) {
         shine
         style={{ width: '100%', marginTop: '1rem' }}
       >
-        Proceed to checkout →
+        Proceed to checkout ➡️
       </Button>
 
       <p style={{ margin: '0.9rem 0 0', fontSize: '0.8rem', color: theme.color.muted, textAlign: 'center' }}>

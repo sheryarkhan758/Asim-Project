@@ -1,5 +1,5 @@
 /* ============================================================================
-   FloraFetch — animation system
+   FloraFetch, animation system
    Dependency-free, reusable utility classes layered on top of the app's inline
    styles. Everything degrades gracefully under `prefers-reduced-motion`.
 
@@ -135,7 +135,7 @@
 }
 
 /* ---- 5. Hover / interaction --------------------------------------------- */
-/* Card lift — pairs with an inner image via .ff-zoom for a subtle zoom. */
+/* Card lift, pairs with an inner image via .ff-zoom for a subtle zoom. */
 .ff-card {
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
               box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);

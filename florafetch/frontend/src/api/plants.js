@@ -23,7 +23,7 @@ export function createPlant(data) {
   return api.post('/plants', data).then((res) => res.data);
 }
 
-// PUT /plants/:id (admin) — partial update -> { plant }
+// PUT /plants/:id (admin), partial update -> { plant }
 export function updatePlant(id, data) {
   return api.put(`/plants/${id}`, data).then((res) => res.data);
 }

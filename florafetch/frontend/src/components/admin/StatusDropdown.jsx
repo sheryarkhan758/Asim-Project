@@ -14,6 +14,7 @@ export default function StatusDropdown({ value, onChange, disabled }) {
   const color = COLOR[value] || theme.color.body;
   return (
     <select
+      className="ff-select"
       value={value}
       disabled={disabled}
       onChange={(e) => onChange(e.target.value)}
@@ -25,8 +26,7 @@ export default function StatusDropdown({ value, onChange, disabled }) {
         fontWeight: 700,
         fontFamily: theme.font.body,
         fontSize: '0.82rem',
-        background: theme.color.primarySoft,
-        cursor: disabled ? 'default' : 'pointer',
+        backgroundColor: theme.color.primarySoft,
         opacity: disabled ? 0.6 : 1,
       }}
     >

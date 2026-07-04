@@ -61,7 +61,7 @@ export default function OrderReview({ items, total }) {
       >
         <strong>💵 Cash on Delivery</strong>
         <p style={{ margin: '0.3rem 0 0', color: theme.color.body }}>
-          Pay in cash when your plants arrive — no online payment needed.
+          Pay in cash when your plants arrive. No online payment needed.
         </p>
       </div>
     </aside>

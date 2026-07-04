@@ -11,7 +11,7 @@ const controlStyle = {
   fontSize: '0.95rem',
   fontFamily: theme.font.body,
   color: theme.color.ink,
-  background: theme.color.bgSoft,
+  backgroundColor: theme.color.bgSoft,
 };
 const labelStyle = {
   display: 'block',
@@ -98,7 +98,7 @@ export default function PlantFormModal({ mode, plant, categories, onSubmit, onCl
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.9rem' }}>
           <div style={field}>
             <label style={labelStyle}>Category</label>
-            <select value={form.category_id} onChange={set('category_id')} style={controlStyle}>
+            <select className="ff-select" value={form.category_id} onChange={set('category_id')} style={controlStyle}>
               <option value="">Uncategorized</option>
               {categories.map((c) => (
                 <option key={c.category_id} value={String(c.category_id)}>{c.name}</option>
@@ -119,7 +119,7 @@ export default function PlantFormModal({ mode, plant, categories, onSubmit, onCl
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.9rem' }}>
           <div style={field}>
             <label style={labelStyle}>Size</label>
-            <select value={form.size} onChange={set('size')} style={controlStyle}>
+            <select className="ff-select" value={form.size} onChange={set('size')} style={controlStyle}>
               <option value="">—</option>
               <option value="small">small</option>
               <option value="medium">medium</option>
@@ -128,7 +128,7 @@ export default function PlantFormModal({ mode, plant, categories, onSubmit, onCl
           </div>
           <div style={field}>
             <label style={labelStyle}>Sunlight</label>
-            <select value={form.sunlight_req} onChange={set('sunlight_req')} style={controlStyle}>
+            <select className="ff-select" value={form.sunlight_req} onChange={set('sunlight_req')} style={controlStyle}>
               <option value="">—</option>
               <option value="Low">Low</option>
               <option value="Medium">Medium</option>
@@ -137,7 +137,7 @@ export default function PlantFormModal({ mode, plant, categories, onSubmit, onCl
           </div>
           <div style={field}>
             <label style={labelStyle}>Watering</label>
-            <select value={form.watering_freq} onChange={set('watering_freq')} style={controlStyle}>
+            <select className="ff-select" value={form.watering_freq} onChange={set('watering_freq')} style={controlStyle}>
               <option value="">—</option>
               <option value="Daily">Daily</option>
               <option value="Weekly">Weekly</option>

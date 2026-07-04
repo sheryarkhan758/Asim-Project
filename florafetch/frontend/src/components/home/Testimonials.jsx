@@ -7,7 +7,7 @@ import { theme } from '../../styles/theme.js';
 const REVIEWS = [
   {
     quote:
-      'My fiddle-leaf fig arrived greener than any I found in a nursery — and the care card told me exactly where to place it. Three months on, it has four new leaves!',
+      'My fiddle-leaf fig arrived greener than any I found in a nursery, and the care card told me exactly where to place it. Three months on, it has four new leaves!',
     name: 'Ayesha K.',
     location: 'Lahore',
     avatar: '🌿',

@@ -29,7 +29,7 @@ export default function Shop() {
   );
   const page = Math.max(1, Number(searchParams.get('page')) || 1);
 
-  // API query params — only include filters that are actually set.
+  // API query params, only include filters that are actually set.
   const apiParams = useMemo(() => {
     const p = {};
     if (filters.category) p.category = filters.category;
@@ -41,7 +41,7 @@ export default function Shop() {
   }, [filters]);
   const queryKey = JSON.stringify(apiParams);
 
-  // Fetch whenever the filters (not the page) change — pagination is client-side.
+  // Fetch whenever the filters (not the page) change, pagination is client-side.
   useEffect(() => {
     let active = true;
     setStatus('loading');
@@ -90,7 +90,7 @@ export default function Shop() {
         <SectionHeading
           eyebrow="Our collection"
           title="Shop plants"
-          subtitle="Browse our handpicked greenery — filter by category, care level and budget to find your perfect match."
+          subtitle="Browse our handpicked greenery, filter by category, care level and budget to find your perfect match."
           align="left"
           style={{ marginBottom: '2rem' }}
         />

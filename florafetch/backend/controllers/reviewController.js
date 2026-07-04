@@ -28,7 +28,7 @@ const moderationQueue = db.prepare(`
 `);
 const approveStmt = db.prepare('UPDATE reviews SET is_approved = 1 WHERE review_id = ?');
 
-// POST /reviews (JWT, multipart) — defaults is_approved to 0
+// POST /reviews (JWT, multipart), defaults is_approved to 0
 function createReview(req, res, next) {
   try {
     const userId = req.user.user_id;
@@ -69,7 +69,7 @@ function createReview(req, res, next) {
   }
 }
 
-// GET /reviews/plant/:plantId (public) — approved reviews only
+// GET /reviews/plant/:plantId (public), approved reviews only
 function getPlantReviews(req, res, next) {
   try {
     const pid = Number(req.params.plantId);
@@ -81,7 +81,7 @@ function getPlantReviews(req, res, next) {
   }
 }
 
-// GET /admin/reviews (admin) — moderation queue of unapproved reviews
+// GET /admin/reviews (admin), moderation queue of unapproved reviews
 function getModerationQueue(req, res, next) {
   try {
     const reviews = moderationQueue.all();

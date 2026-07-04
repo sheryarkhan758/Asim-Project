@@ -78,7 +78,7 @@ export default function Checkout() {
         delivery_date: deliveryDate || null,
         special_instr: specialInstr.trim() || null,
       });
-      await refreshCart(); // backend emptied the cart on success — resync UI
+      await refreshCart(); // backend emptied the cart on success, resync UI
       setConfirmedOrder(order);
     } catch (err) {
       setError(err.response?.data?.error || 'Could not place your order. Please try again.');
@@ -112,7 +112,7 @@ export default function Checkout() {
           </p>
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', marginTop: '1.75rem', flexWrap: 'wrap' }}>
             <Button to={`/orders/${confirmedOrder.order_id}`} variant="primary" shine>
-              Track your order →
+              Track your order ➡️
             </Button>
             <Button to="/shop" variant="ghost">
               Continue shopping
@@ -144,7 +144,7 @@ export default function Checkout() {
           </h1>
           <p style={{ color: theme.color.muted, margin: '0 0 1.5rem' }}>Add some plants before checking out.</p>
           <Button to="/shop" variant="primary" shine>
-            Browse plants →
+            Browse plants ➡️
           </Button>
         </div>
       </Container>
@@ -198,7 +198,7 @@ export default function Checkout() {
                 id="special-instr"
                 value={specialInstr}
                 onChange={(e) => setSpecialInstr(e.target.value)}
-                placeholder="e.g. Fragile — leave at the door, call on arrival, keep upright…"
+                placeholder="e.g. Fragile: leave at the door, call on arrival, keep upright…"
                 rows={3}
                 style={{
                   width: '100%',

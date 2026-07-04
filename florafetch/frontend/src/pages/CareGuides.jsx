@@ -11,7 +11,7 @@ const GUIDES = [
     icon: '💧',
     title: 'Watering the right way',
     tips: [
-      'Check the top 2–3 cm of soil — water only when it feels dry.',
+      'Check the top 2-3 cm of soil, water only when it feels dry.',
       'Water deeply until it drains, then empty the saucer.',
       'Most indoor plants prefer under- over over-watering.',
     ],
@@ -31,7 +31,7 @@ const GUIDES = [
     tips: [
       'Repot when roots circle the pot or poke through the base.',
       'Go up just one pot size to avoid soggy soil.',
-      'Use a light, well-draining mix — never garden clay.',
+      'Use a light, well-draining mix, never garden clay.',
     ],
   },
   {
@@ -47,7 +47,7 @@ const GUIDES = [
     icon: '🌿',
     title: 'Feeding & fertiliser',
     tips: [
-      'Feed during spring–summer growth, not in winter.',
+      'Feed during spring-summer growth, not in winter.',
       'Dilute liquid feed to half strength to be safe.',
       'Yellow lower leaves can signal it is time to feed.',
     ],
@@ -66,15 +66,15 @@ const GUIDES = [
 const QUICK_FAQ = [
   {
     q: 'How often should I water my plant?',
-    a: 'It depends on the plant, pot and season, but the finger test rarely fails: push a finger 2–3 cm into the soil. If it is dry, water; if it is still moist, wait a day or two. Overwatering is the most common way houseplants are lost.',
+    a: 'It depends on the plant, pot and season, but the finger test rarely fails: push a finger 2-3 cm into the soil. If it is dry, water; if it is still moist, wait a day or two. Overwatering is the most common way houseplants are lost.',
   },
   {
-    q: 'My plant’s leaves are turning yellow — what’s wrong?',
+    q: 'My plant’s leaves are turning yellow. What’s wrong?',
     a: 'Yellowing usually points to watering issues (most often too much) or a lack of light or nutrients. Check that the pot drains freely, move the plant somewhere brighter but out of harsh direct sun, and consider a gentle feed during the growing season.',
   },
   {
     q: 'Which plants are best for beginners?',
-    a: 'Start with forgiving, low-maintenance varieties like Snake Plant, Pothos, ZZ Plant or Aloe Vera. They tolerate irregular watering and a range of light conditions — filter the Shop by “Low Maintenance” to find them fast.',
+    a: 'Start with forgiving, low-maintenance varieties like Snake Plant, Pothos, ZZ Plant or Aloe Vera. They tolerate irregular watering and a range of light conditions, filter the Shop by “Low Maintenance” to find them fast.',
   },
   {
     q: 'Are your plants safe for pets?',
@@ -89,7 +89,7 @@ export default function CareGuides() {
         emoji="📖"
         eyebrow="Plant care library"
         title="Care guides for happy, healthy plants"
-        subtitle="Simple, practical advice to help every leaf thrive — whether it's your first succulent or your fiftieth fern."
+        subtitle="Simple, practical advice to help every leaf thrive, whether it's your first succulent or your fiftieth fern."
       />
 
       {/* Guide cards */}
@@ -143,7 +143,7 @@ export default function CareGuides() {
                 <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {g.tips.map((t, i) => (
                     <li key={i} style={{ display: 'flex', gap: '0.5rem', color: theme.color.muted, fontSize: '0.93rem', lineHeight: 1.5 }}>
-                      <span style={{ color: theme.color.primary, flexShrink: 0 }}>✓</span>
+                      <span style={{ color: theme.color.primary, flexShrink: 0 }}>✅</span>
                       <span>{t}</span>
                     </li>
                   ))}
@@ -169,10 +169,10 @@ export default function CareGuides() {
             Put these tips to work
           </h2>
           <p style={{ margin: '0 auto 1.5rem', maxWidth: 500, color: theme.color.muted }}>
-            Every FloraFetch plant ships with a personalised care card — pick your next green companion.
+            Every FloraFetch plant ships with a personalised care card. Pick your next green companion.
           </p>
           <Button to="/shop" variant="primary" shine>
-            Shop plants →
+            Shop plants ➡️
           </Button>
         </Container>
       </section>

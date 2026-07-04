@@ -1,83 +1,107 @@
 import { Link, NavLink } from 'react-router-dom';
+import { Dashboard, Box, Bag, Star, Leaf, ArrowLeft } from '../ui/BrandIcons.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 import { theme } from '../../styles/theme.js';
 
-// Distinct admin chrome (dark green bar + section tabs on a neutral canvas),
-// deliberately different from the storefront's light theme. Reusable across
-// the admin pages; `active` marks the current section.
+// Admin chrome: a clean, professional header (brand + account) with a section
+// tab strip beneath it, sitting on a neutral canvas. Deliberately restrained —
+// no loud gradients — so it reads like a real management console.
 const TABS = [
-  { to: '/admin', label: 'Dashboard', end: true, icon: '📊' },
-  { to: '/admin/plants', label: 'Inventory', end: false, icon: '🪴' },
-  { to: '/admin/orders', label: 'Orders', end: false, icon: '📦' },
-  { to: '/admin/reviews', label: 'Reviews', end: false, icon: '⭐' },
+  { to: '/admin', label: 'Dashboard', end: true, Icon: Dashboard },
+  { to: '/admin/plants', label: 'Inventory', end: false, Icon: Box },
+  { to: '/admin/orders', label: 'Orders', end: false, Icon: Bag },
+  { to: '/admin/reviews', label: 'Reviews', end: false, Icon: Star },
 ];
 
 export default function AdminLayout({ title, children }) {
+  const { user } = useAuth();
+  const name = user?.full_name || 'Administrator';
+  const initial = (name.trim()[0] || 'A').toUpperCase();
+
   return (
-    <div
-      style={{
-        background: theme.color.bgSoft,
-        minHeight: 'calc(100vh - 140px)',
-        fontFamily: theme.font.body,
-      }}
-    >
-      {/* Admin top bar */}
-      <div
+    <div style={{ background: theme.color.bgSoft, minHeight: 'calc(100vh - 140px)', fontFamily: theme.font.body }}>
+      {/* Header: brand + account */}
+      <header
         style={{
-          background: theme.gradient.cta,
-          color: '#fff',
-          padding: '1.1rem 1.5rem',
+          background: '#fff',
+          borderBottom: `1px solid ${theme.color.border}`,
+          padding: '0.85rem 1.5rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          gap: '1rem',
           flexWrap: 'wrap',
-          gap: '0.75rem',
-          boxShadow: theme.shadow.md,
         }}
       >
-        <span
-          style={{
-            fontFamily: theme.font.head,
-            fontWeight: 800,
-            fontSize: '1.2rem',
-            letterSpacing: '0.01em',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-          }}
-        >
-          🌿 FloraFetch{' '}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
           <span
             style={{
-              fontWeight: 600,
-              fontSize: '0.7rem',
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              background: 'rgba(255,255,255,0.16)',
-              padding: '0.25rem 0.7rem',
-              borderRadius: theme.radius.pill,
+              width: 38,
+              height: 38,
+              borderRadius: theme.radius.md,
+              background: theme.color.primary,
+              color: '#fff',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
             }}
           >
-            Admin
+            <Leaf size={22} color="currentColor" />
           </span>
-        </span>
-        <Link
-          to="/"
-          style={{
-            color: '#eafaef',
-            textDecoration: 'none',
-            fontSize: '0.9rem',
-            fontWeight: 600,
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.35rem',
-            background: 'rgba(255,255,255,0.12)',
-            padding: '0.45rem 1rem',
-            borderRadius: theme.radius.pill,
-          }}
-        >
-          ← View store
-        </Link>
-      </div>
+          <span style={{ lineHeight: 1.15 }}>
+            <span style={{ display: 'block', fontFamily: theme.font.head, fontWeight: 800, fontSize: '1.05rem', color: theme.color.ink }}>
+              FloraFetch
+            </span>
+            <span style={{ display: 'block', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: theme.color.muted }}>
+              Admin panel
+            </span>
+          </span>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <Link
+            to="/"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              color: theme.color.body,
+              textDecoration: 'none',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              border: `1px solid ${theme.color.border}`,
+              borderRadius: theme.radius.pill,
+              padding: '0.42rem 0.9rem',
+            }}
+          >
+            <ArrowLeft size={15} color="currentColor" /> View store
+          </Link>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
+            <span
+              aria-hidden="true"
+              style={{
+                width: 34,
+                height: 34,
+                borderRadius: '50%',
+                background: theme.color.primarySoft,
+                color: theme.color.primary,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 800,
+                fontSize: '0.9rem',
+              }}
+            >
+              {initial}
+            </span>
+            <span style={{ lineHeight: 1.2 }} className="ff-admin-account">
+              <span style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: theme.color.ink }}>{name}</span>
+              <span style={{ display: 'block', fontSize: '0.72rem', color: theme.color.muted }}>Administrator</span>
+            </span>
+          </span>
+        </div>
+      </header>
 
       {/* Section tabs */}
       <nav
@@ -86,9 +110,8 @@ export default function AdminLayout({ title, children }) {
           borderBottom: `1px solid ${theme.color.border}`,
           padding: '0 1.5rem',
           display: 'flex',
-          gap: '0.5rem',
+          gap: '0.25rem',
           overflowX: 'auto',
-          boxShadow: theme.shadow.sm,
         }}
       >
         {TABS.map((t) => (
@@ -96,37 +119,37 @@ export default function AdminLayout({ title, children }) {
             key={t.to}
             to={t.to}
             end={t.end}
+            className="ff-admin-tab"
             style={({ isActive }) => ({
               color: isActive ? theme.color.primary : theme.color.muted,
               textDecoration: 'none',
-              padding: '0.9rem 1.1rem',
+              padding: '0.9rem 1rem',
               fontWeight: isActive ? 700 : 600,
-              fontSize: '0.92rem',
-              borderBottom: isActive
-                ? `3px solid ${theme.color.primary}`
-                : '3px solid transparent',
+              fontSize: '0.9rem',
+              borderBottom: isActive ? `2.5px solid ${theme.color.primary}` : '2.5px solid transparent',
+              marginBottom: '-1px',
               whiteSpace: 'nowrap',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.45rem',
-              transition: 'color 0.18s ease',
+              gap: '0.5rem',
+              transition: 'color 0.15s ease',
             })}
           >
-            <span aria-hidden="true">{t.icon}</span>
+            <t.Icon size={17} color="currentColor" />
             {t.label}
           </NavLink>
         ))}
       </nav>
 
       {/* Content */}
-      <div style={{ padding: '2rem 1.5rem', maxWidth: 1120, margin: '0 auto' }}>
+      <div style={{ padding: '2rem 1.5rem', maxWidth: 1160, margin: '0 auto' }}>
         {title ? (
           <h1
             style={{
               fontFamily: theme.font.head,
               color: theme.color.ink,
               margin: '0 0 1.5rem',
-              fontSize: '1.9rem',
+              fontSize: '1.7rem',
               fontWeight: 800,
               letterSpacing: '-0.01em',
             }}

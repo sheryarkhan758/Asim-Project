@@ -8,46 +8,26 @@ const STATUS_COLOR = {
   'In Transit': '#8a5a00',
   Delivered: '#1b7a3d',
 };
-const STATUS_ICON = {
-  Confirmed: '✅',
-  'Quality Check': '🔍',
-  'In Transit': '🚚',
-  Delivered: '📬',
-};
 
-function StatCard({ label, value, accent, icon, big }) {
+// Clean KPI card: a thin top accent, a small colour dot beside the label and a
+// large figure. No decorative icons — the number is the focus.
+function StatCard({ label, value, accent, big }) {
+  const c = accent || theme.color.primary;
   return (
     <div
       className="ff-card"
       style={{
         background: '#fff',
         border: `1px solid ${theme.color.border}`,
+        borderTop: `3px solid ${c}`,
         borderRadius: theme.radius.lg,
         boxShadow: theme.shadow.sm,
-        padding: '1.35rem 1.4rem',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '1rem',
+        padding: '1.25rem 1.4rem',
       }}
     >
-      <div
-        style={{
-          width: 48,
-          height: 48,
-          flexShrink: 0,
-          borderRadius: theme.radius.md,
-          background: theme.color.primarySoft,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '1.35rem',
-        }}
-        aria-hidden="true"
-      >
-        {icon}
-      </div>
-      <div style={{ minWidth: 0 }}>
-        <div
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <span style={{ width: 9, height: 9, borderRadius: '50%', background: c, flexShrink: 0 }} aria-hidden="true" />
+        <span
           style={{
             fontSize: '0.74rem',
             color: theme.color.muted,
@@ -57,19 +37,19 @@ function StatCard({ label, value, accent, icon, big }) {
           }}
         >
           {label}
-        </div>
-        <div
-          style={{
-            fontFamily: theme.font.head,
-            fontSize: big ? '1.85rem' : '1.6rem',
-            fontWeight: 800,
-            color: accent || theme.color.primary,
-            marginTop: '0.25rem',
-            lineHeight: 1.1,
-          }}
-        >
-          {value}
-        </div>
+        </span>
+      </div>
+      <div
+        style={{
+          fontFamily: theme.font.head,
+          fontSize: big ? '2rem' : '1.7rem',
+          fontWeight: 800,
+          color: theme.color.ink,
+          marginTop: '0.5rem',
+          lineHeight: 1.1,
+        }}
+      >
+        {value}
       </div>
     </div>
   );
@@ -107,8 +87,8 @@ export default function SalesStats({ orders }) {
           marginBottom: '1rem',
         }}
       >
-        <StatCard label="Total orders" value={totalOrders} accent={theme.color.primary} icon="🧾" big />
-        <StatCard label="Total revenue" value={formatPKR(totalRevenue)} accent={theme.color.accent} icon="💰" big />
+        <StatCard label="Total orders" value={totalOrders} accent={theme.color.primary} big />
+        <StatCard label="Total revenue" value={formatPKR(totalRevenue)} accent={theme.color.accent} big />
       </div>
 
       {/* Per-status breakdown */}
@@ -120,7 +100,7 @@ export default function SalesStats({ orders }) {
         }}
       >
         {STATUSES.map((s) => (
-          <StatCard key={s} label={s} value={byStatus[s]} accent={STATUS_COLOR[s]} icon={STATUS_ICON[s]} />
+          <StatCard key={s} label={s} value={byStatus[s]} accent={STATUS_COLOR[s]} />
         ))}
       </div>
     </section>

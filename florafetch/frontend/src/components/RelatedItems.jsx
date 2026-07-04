@@ -5,7 +5,7 @@ import SectionHeading from './ui/SectionHeading.jsx';
 
 const MAX_RELATED = 4;
 
-// "Frequently bought with" strip — other plants in the same category.
+// "Frequently bought with" strip, other plants in the same category.
 export default function RelatedItems({ categoryId, currentPlantId }) {
   const [plants, setPlants] = useState([]);
   const [status, setStatus] = useState('loading'); // loading | ready | error
@@ -31,7 +31,7 @@ export default function RelatedItems({ categoryId, currentPlantId }) {
     };
   }, [categoryId, currentPlantId]);
 
-  // Nothing to show — quietly render nothing rather than an empty heading.
+  // Nothing to show, quietly render nothing rather than an empty heading.
   if (status !== 'ready' || plants.length === 0) return null;
 
   return (

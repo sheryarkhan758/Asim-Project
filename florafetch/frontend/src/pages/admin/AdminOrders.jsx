@@ -38,7 +38,7 @@ export default function AdminOrders() {
       setOrders((prev) =>
         prev.map((o) => (o.order_id === order.order_id ? { ...o, status: updated.status } : o))
       );
-      flash('ok', `Order #${order.order_id} → ${updated.status}`);
+      flash('ok', `Order #${order.order_id} set to ${updated.status}`);
     } catch (err) {
       flash('err', err.response?.data?.error || 'Could not update order status.');
     } finally {

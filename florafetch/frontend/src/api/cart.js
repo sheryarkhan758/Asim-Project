@@ -8,7 +8,7 @@ export function getCart() {
   return api.get('/cart').then((res) => res.data);
 }
 
-// POST /cart — add a plant (increments quantity if already present) -> cart snapshot
+// POST /cart, add a plant (increments quantity if already present) -> cart snapshot
 export function addToCart(plantId, quantity = 1) {
   return api.post('/cart', { plant_id: plantId, quantity }).then((res) => res.data);
 }

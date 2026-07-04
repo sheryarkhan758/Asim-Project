@@ -43,7 +43,7 @@ export default function DeliveryInfo({ order }) {
       </div>
       <div style={rowStyle}>
         <span style={labelStyle}>Payment</span>
-        <span style={valueStyle}>💵 {order.payment_method || 'COD'} — pay on delivery</span>
+        <span style={valueStyle}>💵 {order.payment_method || 'COD'}, pay on delivery</span>
       </div>
 
       <div

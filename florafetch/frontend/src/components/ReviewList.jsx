@@ -83,7 +83,7 @@ export default function ReviewList({ plantId }) {
       {status === 'ready' &&
         (reviews.length === 0 ? (
           <p style={{ color: theme.color.muted, marginTop: '1rem' }}>
-            No reviews yet — be the first to share how your plant arrived!
+            No reviews yet. Be the first to share how your plant arrived!
           </p>
         ) : (
           <ul style={{ listStyle: 'none', padding: 0, margin: '1.25rem 0 0', display: 'grid', gap: '1rem' }}>

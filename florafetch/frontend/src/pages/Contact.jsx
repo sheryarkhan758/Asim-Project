@@ -5,12 +5,13 @@ import SectionHeading from '../components/ui/SectionHeading.jsx';
 import Button from '../components/ui/Button.jsx';
 import Reveal from '../components/Reveal.jsx';
 import { sendContactMessage } from '../api/contact.js';
+import { Mail, WhatsApp, MapPin } from '../components/ui/BrandIcons.jsx';
 import { theme } from '../styles/theme.js';
 
 const CHANNELS = [
-  { icon: '📧', title: 'Email us', value: 'hello@florafetch.pk', sub: 'We reply within a day' },
-  { icon: '📞', title: 'Call / WhatsApp', value: '+92 300 1234567', sub: 'Mon–Sat, 9am–7pm' },
-  { icon: '📍', title: 'Visit the nursery', value: 'Green Avenue, Lahore', sub: 'By appointment' },
+  { Icon: Mail, color: theme.color.primary, tint: theme.color.primarySoft, title: 'Email us', value: 'hello@florafetch.pk', sub: 'We reply within a day', href: 'mailto:hello@florafetch.pk' },
+  { Icon: WhatsApp, color: '#25D366', tint: 'rgba(37,211,102,0.14)', title: 'Call / WhatsApp', value: '+92 300 1234567', sub: 'Mon-Sat, 9am-7pm', href: 'https://wa.me/923001234567' },
+  { Icon: MapPin, color: '#c0392b', tint: 'rgba(192,57,43,0.12)', title: 'Visit the nursery', value: 'Green Avenue, Lahore', sub: 'By appointment', href: 'https://maps.google.com/?q=Green+Avenue+Lahore' },
 ];
 
 const inputStyle = {
@@ -88,8 +89,11 @@ export default function Contact() {
             }}
           >
             {CHANNELS.map((c) => (
-              <div
+              <a
                 key={c.title}
+                href={c.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="ff-card"
                 style={{
                   background: '#fff',
@@ -98,6 +102,8 @@ export default function Contact() {
                   boxShadow: theme.shadow.sm,
                   padding: '1.6rem',
                   textAlign: 'center',
+                  textDecoration: 'none',
+                  display: 'block',
                 }}
               >
                 <div
@@ -110,16 +116,15 @@ export default function Contact() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '1.7rem',
-                    background: theme.color.primarySoft,
+                    background: c.tint,
                   }}
                 >
-                  {c.icon}
+                  <c.Icon size={26} color={c.color} />
                 </div>
                 <h3 style={{ margin: '0 0 0.3rem', fontSize: '1.05rem', color: theme.color.ink }}>{c.title}</h3>
                 <div style={{ fontWeight: 700, color: theme.color.primary }}>{c.value}</div>
                 <div style={{ color: theme.color.faint, fontSize: '0.85rem', marginTop: '0.2rem' }}>{c.sub}</div>
-              </div>
+              </a>
             ))}
           </Reveal>
         </Container>
@@ -190,7 +195,7 @@ export default function Contact() {
                 ) : null}
                 <div>
                   <Button type="submit" variant="primary" disabled={submitting}>
-                    {submitting ? 'Sending…' : 'Send message →'}
+                    {submitting ? 'Sending…' : 'Send message ➡️'}
                   </Button>
                 </div>
               </form>

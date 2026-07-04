@@ -35,7 +35,7 @@ function toBool01(v) {
   return undefined;
 }
 
-// GET /plants  (public) — supports filters: category, low_maint, pet_friendly, min_price, max_price
+// GET /plants  (public), supports filters: category, low_maint, pet_friendly, min_price, max_price
 function getAllPlants(req, res, next) {
   try {
     const { category, low_maint, pet_friendly, min_price, max_price } = req.query;
@@ -150,7 +150,7 @@ function createPlant(req, res, next) {
   }
 }
 
-// PUT /plants/:id  (admin) — partial update (only provided fields change)
+// PUT /plants/:id  (admin), partial update (only provided fields change)
 function updatePlant(req, res, next) {
   try {
     const id = Number(req.params.id);

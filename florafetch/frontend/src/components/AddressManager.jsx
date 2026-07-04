@@ -107,7 +107,7 @@ export default function AddressManager() {
         <input
           value={label}
           onChange={(e) => setLabel(e.target.value)}
-          placeholder="Label (e.g. Home, Office) — optional"
+          placeholder="Label (e.g. Home, Office), optional"
           style={controlStyle}
         />
         <textarea

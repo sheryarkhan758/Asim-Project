@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { formatPKR } from '../../utils/format.js';
+import { Leaf } from '../ui/BrandIcons.jsx';
 import { theme } from '../../styles/theme.js';
 
 const th = {
@@ -41,7 +42,7 @@ function Thumb({ url, alt }) {
       {show ? (
         <img src={url} alt={alt} onError={() => setError(true)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       ) : (
-        <span style={{ fontSize: '1.2rem' }} role="img" aria-label="plant">🪴</span>
+        <span style={{ display: 'inline-flex', color: theme.color.primary }} aria-label="plant"><Leaf size={22} color="currentColor" /></span>
       )}
     </div>
   );

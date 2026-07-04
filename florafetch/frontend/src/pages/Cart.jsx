@@ -40,7 +40,7 @@ export default function Cart() {
             Add some greenery to get started.
           </p>
           <Button to="/shop" variant="primary" shine>
-            Browse plants →
+            Browse plants ➡️
           </Button>
         </div>
       </Container>

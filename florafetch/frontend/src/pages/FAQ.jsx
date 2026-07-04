@@ -15,7 +15,7 @@ const GROUPS = [
       },
       {
         q: 'How long does delivery take?',
-        a: 'Most orders arrive within 2–5 working days depending on your city. You can follow every stage — Confirmed, Quality Check, In Transit and Delivered — from your order tracking page.',
+        a: 'Most orders arrive within 2-5 working days depending on your city. You can follow every stage (Confirmed, Quality Check, In Transit and Delivered) from your order tracking page.',
       },
       {
         q: 'Is delivery really free?',
@@ -28,7 +28,7 @@ const GROUPS = [
     items: [
       {
         q: 'How do I pay?',
-        a: 'We offer Cash on Delivery (COD) across Pakistan — pay only once your plant is safely in your hands. No card or advance payment required.',
+        a: 'We offer Cash on Delivery (COD) across Pakistan. Pay only once your plant is safely in your hands. No card or advance payment required.',
       },
       {
         q: 'Can I pay online instead?',
@@ -45,7 +45,7 @@ const GROUPS = [
       },
       {
         q: 'Do plants come with care instructions?',
-        a: 'Yes — every plant ships with a personalised care card covering watering, light and feeding. You can also browse our Care Guides any time for deeper tips.',
+        a: 'Yes, every plant ships with a personalised care card covering watering, light and feeding. You can also browse our Care Guides any time for deeper tips.',
       },
       {
         q: 'How do I know which plant suits my space?',
@@ -111,7 +111,7 @@ export default function FAQ() {
               Our friendly team is happy to help with anything we haven't covered here.
             </p>
             <Button to="/contact" variant="light" shine>
-              Contact us →
+              Contact us ➡️
             </Button>
           </div>
         </Container>

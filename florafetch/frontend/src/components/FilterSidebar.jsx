@@ -18,7 +18,7 @@ const controlStyle = {
   fontSize: '0.95rem',
   fontFamily: theme.font.body,
   color: theme.color.ink,
-  background: theme.color.bgSoft,
+  backgroundColor: theme.color.bgSoft,
 };
 
 // Controlled filter panel. `values` come from the URL (Shop owns them); every
@@ -104,6 +104,7 @@ export default function FilterSidebar({ values, onChange, onClear }) {
         </label>
         <select
           id="filter-category"
+          className="ff-select"
           value={values.category}
           onChange={(e) => onChange('category', e.target.value)}
           style={controlStyle}
@@ -156,7 +157,7 @@ export default function FilterSidebar({ values, onChange, onClear }) {
             onKeyDown={(e) => e.key === 'Enter' && commit('min_price')(minLocal)}
             style={controlStyle}
           />
-          <span style={{ color: theme.color.faint }}>–</span>
+          <span style={{ color: theme.color.faint }}>-</span>
           <input
             type="number"
             min="0"

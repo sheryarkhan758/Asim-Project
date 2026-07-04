@@ -6,7 +6,7 @@ const insertMessage = db.prepare(
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// POST /contact (public) — store a contact-form submission.
+// POST /contact (public), store a contact-form submission.
 function createMessage(req, res, next) {
   try {
     const name = (req.body.name || '').trim();
@@ -23,7 +23,7 @@ function createMessage(req, res, next) {
 
     const info = insertMessage.run(name, email, subject || null, message);
     res.status(201).json({
-      message: "Thanks for reaching out — we'll be in touch soon.",
+      message: "Thanks for reaching out, we'll be in touch soon.",
       message_id: info.lastInsertRowid,
     });
   } catch (err) {

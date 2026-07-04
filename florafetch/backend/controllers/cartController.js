@@ -42,7 +42,7 @@ function buildCartResponse(userId) {
   return { count: items.length, subtotal, items };
 }
 
-// GET /cart — the current user's cart joined with plant details
+// GET /cart, the current user's cart joined with plant details
 function getCart(req, res, next) {
   try {
     res.json(buildCartResponse(req.user.user_id));
@@ -51,7 +51,7 @@ function getCart(req, res, next) {
   }
 }
 
-// POST /cart — add a plant + quantity; if already in cart, increment
+// POST /cart, add a plant + quantity; if already in cart, increment
 function addToCart(req, res, next) {
   try {
     const userId = req.user.user_id;
@@ -85,7 +85,7 @@ function addToCart(req, res, next) {
   }
 }
 
-// DELETE /cart/:itemId — remove, only if it belongs to the user
+// DELETE /cart/:itemId, remove, only if it belongs to the user
 function removeFromCart(req, res, next) {
   try {
     const userId = req.user.user_id;
@@ -94,7 +94,7 @@ function removeFromCart(req, res, next) {
       return res.status(400).json({ error: 'Invalid cart item id' });
     }
 
-    // 404 covers both "doesn't exist" and "belongs to another user" — without leaking which.
+    // 404 covers both "doesn't exist" and "belongs to another user", without leaking which.
     if (!findCartRowById.get(itemId, userId)) {
       return res.status(404).json({ error: 'Cart item not found' });
     }

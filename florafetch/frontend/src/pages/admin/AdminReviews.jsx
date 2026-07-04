@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getModerationQueue, approveReview } from '../../api/reviews.js';
 import AdminLayout from '../../components/admin/AdminLayout.jsx';
 import ReviewQueue from '../../components/admin/ReviewQueue.jsx';
+import { CheckCircle } from '../../components/ui/BrandIcons.jsx';
 import { theme } from '../../styles/theme.js';
 
 export default function AdminReviews() {
@@ -67,8 +68,8 @@ export default function AdminReviews() {
       {status === 'ready' &&
         (reviews.length === 0 ? (
           <div style={{ background: '#fff', border: `1px solid ${theme.color.border}`, borderRadius: theme.radius.lg, boxShadow: theme.shadow.sm, padding: '2.5rem', textAlign: 'center', color: theme.color.muted }}>
-            <div style={{ fontSize: '2.75rem' }}>🎉</div>
-            <p style={{ fontFamily: theme.font.head, fontWeight: 700, color: theme.color.ink, margin: '0.5rem 0 0' }}>No reviews pending moderation.</p>
+            <div style={{ display: 'flex', justifyContent: 'center', color: theme.color.primary }}><CheckCircle size={44} color="currentColor" /></div>
+            <p style={{ fontFamily: theme.font.head, fontWeight: 700, color: theme.color.ink, margin: '0.75rem 0 0' }}>No reviews pending moderation.</p>
           </div>
         ) : (
           <>

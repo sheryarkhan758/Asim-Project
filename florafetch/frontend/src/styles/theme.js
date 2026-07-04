@@ -1,5 +1,5 @@
 // ============================================================================
-// FloraFetch — design tokens
+// FloraFetch, design tokens
 // A single source of truth for colors, typography, spacing, radii and shadows
 // so every page/component (which style inline) can stay visually consistent.
 // Import what you need: `import { theme, styles } from '../styles/theme.js'`.
@@ -11,7 +11,7 @@ export const theme = {
     primaryDark: '#14331f',
     primaryLight: '#2fa15a',
     primarySoft: '#e8f3ea',
-    accent: '#c97b3c', // warm terracotta — used sparingly for highlights/stars
+    accent: '#c97b3c', // warm terracotta, used sparingly for highlights/stars
     accentSoft: '#fbeee0',
     ink: '#20372a', // primary text on light
     body: '#42564a', // secondary body text

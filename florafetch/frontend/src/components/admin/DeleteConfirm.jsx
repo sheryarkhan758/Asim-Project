@@ -1,4 +1,5 @@
 import Modal from '../Modal.jsx';
+import { Trash } from '../ui/BrandIcons.jsx';
 import { theme } from '../../styles/theme.js';
 
 // Confirmation dialog for deleting a plant (DELETE /plants/:id).
@@ -27,11 +28,11 @@ export default function DeleteConfirm({ plant, onConfirm, onClose, deleting, err
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '1.25rem',
+            color: theme.color.danger,
           }}
           aria-hidden="true"
         >
-          🗑️
+          <Trash size={22} color="currentColor" />
         </div>
         <p style={{ color: theme.color.ink, margin: 0, lineHeight: 1.5 }}>
           Are you sure you want to delete <strong>{plant?.name}</strong>? This can't be undone.

@@ -86,7 +86,7 @@ const placeOrder = db.transaction((userId, details) => {
   return orderId;
 });
 
-// POST /orders (JWT) — checkout
+// POST /orders (JWT), checkout
 function createOrder(req, res, next) {
   try {
     const { delivery_address, delivery_date, special_instr } = req.body || {};
@@ -107,7 +107,7 @@ function createOrder(req, res, next) {
   }
 }
 
-// GET /orders (JWT) — the logged-in user's orders
+// GET /orders (JWT), the logged-in user's orders
 function getOrders(req, res, next) {
   try {
     const orders = listUserOrders.all(req.user.user_id);
@@ -117,7 +117,7 @@ function getOrders(req, res, next) {
   }
 }
 
-// GET /admin/orders (admin) — every order in the store, with customer info
+// GET /admin/orders (admin), every order in the store, with customer info
 function getAllOrders(req, res, next) {
   try {
     const orders = listAllOrders.all();
@@ -127,7 +127,7 @@ function getAllOrders(req, res, next) {
   }
 }
 
-// GET /orders/:id (JWT) — one order with items + status (owner or admin)
+// GET /orders/:id (JWT), one order with items + status (owner or admin)
 function getOrder(req, res, next) {
   try {
     const id = Number(req.params.id);
@@ -145,7 +145,7 @@ function getOrder(req, res, next) {
   }
 }
 
-// PUT /orders/:id/status (admin) — advance the 4-stage pipeline
+// PUT /orders/:id/status (admin), advance the 4-stage pipeline
 function updateOrderStatus(req, res, next) {
   try {
     const id = Number(req.params.id);

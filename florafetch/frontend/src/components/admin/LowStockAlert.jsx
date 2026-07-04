@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getPlants } from '../../api/plants.js';
+import { Warning, ArrowRight, CheckCircle } from '../ui/BrandIcons.jsx';
 import { theme } from '../../styles/theme.js';
 
 const THRESHOLD = 5; // plants at or below this stock count are flagged
@@ -53,15 +54,15 @@ export default function LowStockAlert() {
             gap: '0.45rem',
           }}
         >
-          <span aria-hidden="true">⚠️</span> Low stock{' '}
+          <span aria-hidden="true" style={{ display: 'inline-flex', color: '#c98a1a' }}><Warning size={18} color="currentColor" /></span> Low stock{' '}
           <span style={{ fontSize: '0.82rem', color: theme.color.muted, fontWeight: 500 }}>(≤ {THRESHOLD})</span>
         </h2>
         <Link
           to="/admin/plants"
           className="ff-underline"
-          style={{ color: theme.color.primary, fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none' }}
+          style={{ color: theme.color.primary, fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
         >
-          Manage inventory →
+          Manage inventory <ArrowRight size={15} color="currentColor" />
         </Link>
       </div>
 
@@ -69,8 +70,8 @@ export default function LowStockAlert() {
       {status === 'error' && <p style={{ color: theme.color.danger }}>Could not load inventory.</p>}
       {status === 'ready' &&
         (plants.length === 0 ? (
-          <p style={{ color: theme.color.primary, margin: '0.75rem 0 0', fontWeight: 600 }}>
-            All plants are well stocked. 🌿
+          <p style={{ color: theme.color.primary, margin: '0.75rem 0 0', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
+            <CheckCircle size={18} color="currentColor" /> All plants are well stocked.
           </p>
         ) : (
           <ul

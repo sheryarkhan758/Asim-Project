@@ -26,7 +26,7 @@ export default function ProductCard({ plant }) {
   const showImage = plant.image_url && !imgError;
 
   const handleAdd = async () => {
-    // Cart lives on the server behind auth — send guests to login first.
+    // Cart lives on the server behind auth, send guests to login first.
     if (!isAuthenticated) {
       navigate('/login', { state: { from: { pathname: '/shop' } } });
       return;
@@ -132,7 +132,7 @@ export default function ProductCard({ plant }) {
               whiteSpace: 'nowrap',
             }}
           >
-            {outOfStock ? 'Out of stock' : added ? 'Added ✓' : adding ? 'Adding…' : 'Add to cart'}
+            {outOfStock ? 'Out of stock' : added ? 'Added ✅' : adding ? 'Adding…' : 'Add to cart'}
           </button>
         </div>
       </div>

@@ -34,7 +34,7 @@ export default function NotFound() {
           The page you're looking for may have wilted away or been moved. Let's get you back to greener ground.
         </p>
         <Button to="/" variant="primary" shine style={{ marginTop: '1rem' }}>
-          ← Back to home
+          ⬅️ Back to home
         </Button>
       </Container>
     </section>

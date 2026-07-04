@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { formatPKR, formatDate } from '../../utils/format.js';
+import { ArrowRight } from '../ui/BrandIcons.jsx';
 import { theme } from '../../styles/theme.js';
 
 const LIMIT = 8;
@@ -58,9 +59,9 @@ export default function RecentOrders({ orders }) {
         <Link
           to="/admin/orders"
           className="ff-underline"
-          style={{ color: theme.color.primary, fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none' }}
+          style={{ color: theme.color.primary, fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
         >
-          Manage all →
+          Manage all <ArrowRight size={15} color="currentColor" />
         </Link>
       </div>
 
@@ -101,9 +102,9 @@ export default function RecentOrders({ orders }) {
                   <td style={{ ...tdStyle, textAlign: 'right' }}>
                     <Link
                       to={`/orders/${o.order_id}`}
-                      style={{ color: theme.color.primary, fontWeight: 700, whiteSpace: 'nowrap', textDecoration: 'none' }}
+                      style={{ color: theme.color.primary, fontWeight: 700, whiteSpace: 'nowrap', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}
                     >
-                      View →
+                      View <ArrowRight size={14} color="currentColor" />
                     </Link>
                   </td>
                 </tr>

@@ -37,7 +37,7 @@ const AUTOCOMPLETE = {
   confirmPassword: 'new-password',
 };
 
-// Pure per-field validation — returns an error string ('' means valid).
+// Pure per-field validation, returns an error string ('' means valid).
 function validateField(name, values, mode) {
   const value = values[name] ?? '';
   switch (name) {

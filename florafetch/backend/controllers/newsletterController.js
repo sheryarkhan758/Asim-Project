@@ -8,7 +8,7 @@ const insertSubscriber = db.prepare(
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// POST /newsletter (public) — add an email to the subscriber list.
+// POST /newsletter (public), add an email to the subscriber list.
 function subscribe(req, res, next) {
   try {
     const email = (req.body.email || '').trim().toLowerCase();
@@ -22,7 +22,7 @@ function subscribe(req, res, next) {
 
     res.status(201).json({
       message: alreadySubscribed
-        ? "You're already on the list — thanks for your enthusiasm!"
+        ? "You're already on the list, thanks for your enthusiasm!"
         : "You're subscribed! Watch your inbox for green goodness.",
       alreadySubscribed,
     });

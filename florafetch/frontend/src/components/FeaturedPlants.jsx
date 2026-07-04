@@ -50,7 +50,7 @@ export default function FeaturedPlants() {
               <ProductGrid plants={plants} />
               <div style={{ textAlign: 'center', marginTop: '1.75rem' }}>
                 <Button to="/shop" variant="ghost">
-                  Browse all plants →
+                  Browse all plants ➡️
                 </Button>
               </div>
             </>

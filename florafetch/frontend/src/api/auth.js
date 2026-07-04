@@ -1,6 +1,6 @@
 import api from './client.js';
 
-// Auth endpoints — one function per backend route (see routes/auth.js).
+// Auth endpoints, one function per backend route (see routes/auth.js).
 // Each returns the parsed JSON body.
 
 // POST /auth/register -> { user }
@@ -23,7 +23,7 @@ export function getProfile() {
   return api.get('/auth/profile').then((res) => res.data);
 }
 
-// PUT /auth/profile (JWT) — details + saved addresses -> { user }
+// PUT /auth/profile (JWT), details + saved addresses -> { user }
 export function updateProfile(data) {
   return api.put('/auth/profile', data).then((res) => res.data);
 }

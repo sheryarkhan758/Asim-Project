@@ -60,7 +60,7 @@ export function AuthProvider({ children }) {
     try {
       if (localStorage.getItem(TOKEN_KEY)) await authApi.logout();
     } catch {
-      // token already invalid/expired — clearing locally is enough.
+      // token already invalid/expired, clearing locally is enough.
     }
     persistSession(null, null);
   }, [persistSession]);

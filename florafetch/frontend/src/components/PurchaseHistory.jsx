@@ -51,7 +51,7 @@ export default function PurchaseHistory() {
           <p style={{ color: theme.color.muted }}>
             No orders yet.{' '}
             <Link to="/shop" className="ff-underline" style={{ color: theme.color.primary, fontWeight: 600, textDecoration: 'none' }}>
-              Start shopping →
+              Start shopping ➡️
             </Link>
           </p>
         ) : (
@@ -97,7 +97,7 @@ export default function PurchaseHistory() {
                     className="ff-underline"
                     style={{ color: theme.color.primary, fontWeight: 600, whiteSpace: 'nowrap', textDecoration: 'none' }}
                   >
-                    Track →
+                    Track ➡️
                   </Link>
                 </div>
               </li>

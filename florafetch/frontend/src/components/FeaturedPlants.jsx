@@ -27,13 +27,13 @@ export default function FeaturedPlants() {
   }, []);
 
   return (
-    <section style={{ padding: '2.5rem 0 1rem' }}>
+    <section style={{ padding: '3rem 0' }}>
       <Container>
         <SectionHeading
           align="center"
           eyebrow="Fresh picks"
           title="Featured plants"
-          subtitle="Hand-picked favourites that thrive in Pakistani homes — ready to ship today."
+          subtitle="Handpicked favourites that thrive in Pakistani homes, ready to ship today."
         />
 
         {status === 'loading' && (
@@ -48,7 +48,7 @@ export default function FeaturedPlants() {
           (plants.length ? (
             <>
               <ProductGrid plants={plants} />
-              <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+              <div style={{ textAlign: 'center', marginTop: '1.75rem' }}>
                 <Button to="/shop" variant="ghost">
                   Browse all plants →
                 </Button>
@@ -56,7 +56,7 @@ export default function FeaturedPlants() {
             </>
           ) : (
             <p style={{ color: theme.color.muted, textAlign: 'center' }}>
-              No plants available yet — check back soon.
+              No plants available yet. Check back soon.
             </p>
           ))}
       </Container>

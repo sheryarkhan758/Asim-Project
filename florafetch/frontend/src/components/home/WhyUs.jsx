@@ -2,6 +2,7 @@ import Container from '../ui/Container.jsx';
 import SectionHeading from '../ui/SectionHeading.jsx';
 import FeatureCard from '../ui/FeatureCard.jsx';
 import Reveal from '../Reveal.jsx';
+import { theme } from '../../styles/theme.js';
 
 const BENEFITS = [
   {
@@ -29,7 +30,7 @@ const BENEFITS = [
 // "Why FloraFetch" value-proposition grid.
 export default function WhyUs() {
   return (
-    <section style={{ padding: '3.5rem 0' }}>
+    <section style={{ padding: '3rem 0', background: theme.color.bgSoft }}>
       <Container>
         <SectionHeading
           eyebrow="Why FloraFetch"

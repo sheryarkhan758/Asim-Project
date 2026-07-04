@@ -5,14 +5,14 @@ import { theme } from '../../styles/theme.js';
 const ITEMS = [
   { icon: '🚚', title: 'Free delivery', sub: 'On orders over Rs 2,000' },
   { icon: '💵', title: 'Cash on Delivery', sub: 'Pay when it arrives' },
-  { icon: '🌱', title: '7-day guarantee', sub: 'Healthy-arrival promise' },
+  { icon: '🌱', title: '7 day guarantee', sub: 'Healthy arrival promise' },
   { icon: '📖', title: 'Expert care guides', sub: 'For every plant' },
 ];
 
 // Trust badges shown right under the hero — reassurance at a glance.
 export default function FeatureStrip() {
   return (
-    <Container style={{ marginTop: '-1.5rem', marginBottom: '2.5rem', position: 'relative', zIndex: 2 }}>
+    <Container style={{ marginTop: '-1.5rem', marginBottom: '0.5rem', position: 'relative', zIndex: 2 }}>
       <Reveal
         className="ff-stagger"
         style={{

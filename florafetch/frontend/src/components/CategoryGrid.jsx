@@ -8,11 +8,10 @@ import { theme } from '../styles/theme.js';
 
 // Emoji per known category name; falls back to a seedling for anything new.
 const CATEGORY_ICON = {
-  Indoor: '🪴',
-  Outdoor: '🌳',
-  Succulents: '🌵',
-  Flowering: '🌸',
-  Medicinal: '🌿',
+  'Indoor Plants': '🪴',
+  'Outdoor Plants': '🌳',
+  'Air Purifying Plants': '🍃',
+  'Medicinal Plants': '🌿',
 };
 
 export default function CategoryGrid() {
@@ -34,12 +33,12 @@ export default function CategoryGrid() {
   }, []);
 
   return (
-    <section style={{ padding: '3.5rem 0' }}>
+    <section style={{ padding: '3rem 0' }}>
       <Container>
         <SectionHeading
           eyebrow="Find your fit"
           title="Shop by category"
-          subtitle="From low-light indoor greens to hardy outdoor growers — start where you belong."
+          subtitle="From low light indoor greens to air purifying and medicinal plants. Start where you belong."
         />
 
         {status === 'loading' && (
@@ -56,8 +55,8 @@ export default function CategoryGrid() {
               className="ff-stagger"
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
-                gap: '1rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '1.25rem',
               }}
             >
               {categories.map((cat) => (

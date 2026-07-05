@@ -89,7 +89,7 @@ The following path was smoke-tested against the running app and API:
 | Admin    | `admin@florafetch.pk`      | `Admin@123`    |
 | Customer | `customer@florafetch.pk`   | `Customer@123` |
 
-It also inserts 5 categories (Indoor, Outdoor, Succulents, Flowering, Medicinal) and 8 sample plants.
+It also inserts 4 categories (Indoor, Outdoor, Air Purifying, Medicinal) and 40 sample plants (10 per category).
 
 ## API overview (base path `/api/v1`)
 
